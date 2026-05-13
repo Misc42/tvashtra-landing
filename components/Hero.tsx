@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { asset } from "@/lib/asset";
 
 export default function Hero() {
   return (
@@ -47,7 +48,7 @@ export default function Hero() {
       <figure className="card overflow-hidden">
         <div className="relative aspect-[4/3] w-full bg-paper">
           <Image
-            src="/screenshots/pawn2.png"
+            src={asset("/screenshots/pawn2.png")}
             alt="A chess pawn rendered in the Tvashtra viewport — built via sketch + revolve through a single chat turn."
             fill
             priority

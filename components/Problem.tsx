@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 const bullets = [
   {
@@ -38,7 +39,7 @@ export default function Problem() {
           </p>
           <div className="relative aspect-[4/3] w-full bg-paper">
             <Image
-              src="/screenshots/p5_test.png"
+              src={asset("/screenshots/p5_test.png")}
               alt="An early render — the model claimed a hole was drilled. The view does not show one."
               fill
               sizes="(min-width: 1024px) 540px, 100vw"
@@ -56,7 +57,7 @@ export default function Problem() {
           </p>
           <div className="relative aspect-[4/3] w-full bg-paper">
             <Image
-              src="/screenshots/visfb.png"
+              src={asset("/screenshots/visfb.png")}
               alt="Tvashtra rendering four canonical views after a tool batch — the model checks its own work before replying."
               fill
               sizes="(min-width: 1024px) 540px, 100vw"

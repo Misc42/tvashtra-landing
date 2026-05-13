@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 const frames = [
   {
@@ -40,7 +41,7 @@ export default function Tour() {
           <figure key={f.src} className="card overflow-hidden">
             <div className="relative aspect-[16/10] w-full bg-paper">
               <Image
-                src={f.src}
+                src={asset(f.src)}
                 alt={f.title}
                 fill
                 sizes="(min-width: 768px) 540px, 100vw"
