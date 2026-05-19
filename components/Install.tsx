@@ -3,26 +3,38 @@
 import { useState } from "react";
 import WaitlistForm from "@/components/WaitlistForm";
 
-// Canonical GitHub Releases /latest URLs. The actual filename pattern
-// is what tauri-action emits with the configuration in this repo's
-// `.github/workflows/release.yml`. `/releases/latest/download/<file>`
-// is a permalink that redirects to the latest release's asset, so
-// it stays stable across version bumps — no edits here when we cut
-// v0.1.1, v0.2.0 etc.
-const REPO = "https://github.com/Misc42/tvashtra";
-const LATEST = `${REPO}/releases/latest`;
+// Binaries publish to `tvashtra-landing` (public repo) because the
+// main source repo `Misc42/tvashtra` is private — its `/releases`
+// 404s for anonymous downloaders. Releases on the landing repo are
+// purely artifact hosting; the v* tag for source provenance lives
+// on the private repo.
+//
+// We pin to the explicit `/releases/download/<tag>/<asset>` URL
+// instead of GitHub's `/releases/latest/download/<asset>` permalink
+// because the latter skips prereleases — and v0.1.0 ships as an
+// alpha (`--prerelease`). Bump VERSION + the v* tag in lockstep
+// when cutting a new release.
+const REPO = "https://github.com/Misc42/tvashtra-landing";
+const VERSION = "0.1.0";
+const TAG = `v${VERSION}`;
+const ASSET_BASE = `${REPO}/releases/download/${TAG}`;
+const LATEST = `${REPO}/releases`;
+
+// Filename casing matches tauri-action's bundle output — capital
+// `Tvashtra_` on the `.deb` / `.AppImage`, lowercase
+// `Tvashtra-` on the `.rpm` (RPM packaging convention).
 const downloads = {
-  deb: `${LATEST}/download/tvashtra_0.1.0_amd64.deb`,
-  appimage: `${LATEST}/download/tvashtra_0.1.0_amd64.AppImage`,
-  rpm: `${LATEST}/download/tvashtra-0.1.0-1.x86_64.rpm`,
+  deb: `${ASSET_BASE}/Tvashtra_${VERSION}_amd64.deb`,
+  appimage: `${ASSET_BASE}/Tvashtra_${VERSION}_amd64.AppImage`,
+  rpm: `${ASSET_BASE}/Tvashtra-${VERSION}-1.x86_64.rpm`,
 };
 
 const linuxInstallSnippet = `# Debian / Ubuntu
-sudo apt install ./tvashtra_0.1.0_amd64.deb
+sudo apt install ./Tvashtra_${VERSION}_amd64.deb
 
 # Or portable:
-chmod +x tvashtra_0.1.0_amd64.AppImage
-./tvashtra_0.1.0_amd64.AppImage`;
+chmod +x Tvashtra_${VERSION}_amd64.AppImage
+./Tvashtra_${VERSION}_amd64.AppImage`;
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
