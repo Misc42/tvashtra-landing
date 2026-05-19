@@ -39,11 +39,11 @@ export default function Problem() {
           </p>
           <div className="relative aspect-[4/3] w-full bg-paper">
             <Image
-              src={asset("/screenshots/p5_test.png")}
-              alt="An early render — the model claimed a hole was drilled. The view does not show one."
+              src={asset("/screenshots/mode-wireframe.png")}
+              alt="A wireframe view that reveals the hole the model claimed it drilled isn't actually there — only an outline that looks right from one angle."
               fill
               sizes="(min-width: 1024px) 540px, 100vw"
-              className="object-cover"
+              className="object-contain"
             />
           </div>
           <figcaption className="px-5 py-4 text-sm text-muted">
@@ -57,11 +57,11 @@ export default function Problem() {
           </p>
           <div className="relative aspect-[4/3] w-full bg-paper">
             <Image
-              src={asset("/screenshots/visfb.png")}
-              alt="Tvashtra rendering four canonical views after a tool batch — the model checks its own work before replying."
+              src={asset("/screenshots/mode-shaded.png")}
+              alt="The same part rendered with the verified shaded mode — the hole is real, the fillets are real, the geometry matches what the model claims."
               fill
               sizes="(min-width: 1024px) 540px, 100vw"
-              className="object-cover"
+              className="object-contain"
             />
           </div>
           <figcaption className="px-5 py-4 text-sm text-muted">

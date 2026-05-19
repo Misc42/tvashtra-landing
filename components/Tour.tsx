@@ -3,28 +3,40 @@ import { asset } from "@/lib/asset";
 
 const frames = [
   {
-    src: "/screenshots/filleted_part.png",
-    eyebrow: "Viewport",
-    title: "A real part, not a render demo.",
-    body: "OCCT-built geometry. The fillets are real edges, not screen-space tricks. PBR + image-based lighting via wgpu so the model sees what you see.",
+    src: "/screenshots/mode-shaded.png",
+    eyebrow: "Shaded",
+    title: "Studio IBL with real fillets.",
+    body: "PBR through wgpu with image-based lighting baked from a Poly Haven studio HDR. The fillets are real B-rep edges, not screen-space tricks.",
   },
   {
-    src: "/screenshots/test_extrude.png",
-    eyebrow: "History",
-    title: "Op tree, the way a CAD person reads it.",
-    body: "Every primitive, sketch, boolean, fillet. Branch from any node — the transcript is the parametric tree.",
+    src: "/screenshots/mode-shaded-edges.png",
+    eyebrow: "Shaded + edges",
+    title: "Engineering look, kept legible.",
+    body: "MRT pass writes normal + depth alongside colour; the second pass runs Sobel for an outline overlay you can read across the whole part.",
   },
   {
-    src: "/screenshots/visfb.png",
-    eyebrow: "Self-check",
-    title: "Verification round, shown in the chat.",
-    body: "Four-view snapshot bundle appears inline. The model reads, scores, retries. The card shows what it saw and what it decided.",
+    src: "/screenshots/mode-wireframe.png",
+    eyebrow: "Wireframe",
+    title: "Topology at a glance.",
+    body: "Every edge, no shading. Useful when you need to confirm a chamfer landed exactly where you think it did — or when the boolean tessellation looks suspicious.",
   },
   {
-    src: "/screenshots/sphere.png",
-    eyebrow: "Materials",
-    title: "Seven materials, one tonemap.",
-    body: "Studio IBL, ACES output. Switch material to inspect a feature, not to win Instagram. (The Instagram win is incidental.)",
+    src: "/screenshots/mode-hidden-line.png",
+    eyebrow: "Hidden-line removed",
+    title: "Clean engineering drawing.",
+    body: "Front-facing edges only — the look a draftsperson would put on paper. Useful for screenshots in a spec doc or a part-fab brief.",
+  },
+  {
+    src: "/screenshots/mode-hidden-dashed.png",
+    eyebrow: "Hidden-line dashed",
+    title: "Occluded edges, dashed.",
+    body: "The full drafting convention. Visible edges solid, hidden edges dashed. The B-rep edge graph drives this directly — no faking with shaders.",
+  },
+  {
+    src: "/screenshots/mode-sketch.png",
+    eyebrow: "Sketch",
+    title: "Presentation-ready clay.",
+    body: "Flat clay fill, bold contour. The mode you ship a render to a client in when the geometry is the story and the material isn't.",
   },
 ];
 
@@ -33,19 +45,19 @@ export default function Tour() {
     <section id="tour" className="wrap border-b border-rule py-20">
       <p className="masthead mb-4">Tour</p>
       <h2 className="section-title max-w-3xl">
-        Walk the loop in four frames.
+        Six render modes, same geometry.
       </h2>
 
       <div className="mt-12 grid gap-8 md:grid-cols-2">
         {frames.map((f) => (
           <figure key={f.src} className="card overflow-hidden">
-            <div className="relative aspect-[16/10] w-full bg-paper">
+            <div className="relative aspect-square w-full bg-paper">
               <Image
                 src={asset(f.src)}
                 alt={f.title}
                 fill
                 sizes="(min-width: 768px) 540px, 100vw"
-                className="object-cover"
+                className="object-contain"
               />
             </div>
             <figcaption className="space-y-2 px-6 py-5">

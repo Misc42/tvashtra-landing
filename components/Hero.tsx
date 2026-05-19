@@ -46,19 +46,19 @@ export default function Hero() {
         </div>
       </div>
       <figure className="card overflow-hidden">
-        <div className="relative aspect-[4/3] w-full bg-paper">
+        <div className="relative aspect-[16/10] w-full bg-paper">
           <Image
-            src={asset("/screenshots/pawn2.png")}
-            alt="A chess pawn rendered in the Tvashtra viewport — built via sketch + revolve through a single chat turn."
+            src={asset("/screenshots/forge-black-shell.png")}
+            alt="The Tvashtra desktop shell — devanagari brand glyph, history rail on the left, six render modes above the viewport, and a chat composer on the right with sample prompts."
             fill
             priority
-            sizes="(min-width: 1024px) 560px, 100vw"
+            sizes="(min-width: 1024px) 720px, 100vw"
             className="object-cover"
           />
         </div>
         <figcaption className="flex items-center justify-between gap-4 border-t border-rule px-5 py-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-faint">
-          <span>Sketch &rarr; revolve, one prompt</span>
-          <span className="text-saffron">Live render</span>
+          <span>Desktop &middot; OCCT &middot; wgpu PBR</span>
+          <span className="text-saffron">Forge Black</span>
         </figcaption>
       </figure>
     </section>
