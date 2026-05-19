@@ -1,9 +1,26 @@
 # tvashtra-landing
 
-Public landing page for [Tvashtra](https://github.com/Misc42/tvashtra) — an
-LLM-driven desktop CAD application. The application repo stays private during
-the beta; this site documents what Tvashtra is, links to the waitlist, and
-will point to the public source repo when v1 ships.
+Public landing + binary releases for [Tvashtra](https://github.com/Misc42/tvashtra) —
+an LLM-driven desktop CAD application. Two-repo mirror of the Sanketra
+pattern: the source code repo stays private forever, this repo is the
+single public surface — landing page (Next.js, deployed to
+`misc42.github.io/tvashtra-landing/` via GitHub Pages) **plus** the
+`/releases/` artefacts (`.AppImage` + `.deb` + `.rpm` + `.sha256`
+sidecars) that the `install.sh` one-liner downloads.
+
+## Public install (Linux)
+
+```bash
+curl -fsSL https://misc42.github.io/tvashtra-landing/install.sh | bash
+```
+
+Self-contained AppImage — OCCT 7.8 + WebKit + every Tauri host lib
+bundled. Drops binary in `~/.local/bin/tvashtra`, registers desktop
+entry, refreshes icon cache. No sudo, no apt / dnf / pacman branching.
+Idempotent. The script lives at `public/install.sh`; the canonical
+version pin is `public/VERSION` (single source of truth — bump it in
+lockstep with the `v*` tag and the `VERSION` constant in
+`components/Install.tsx`).
 
 Shares its visual hand with
 [Sanketra](https://github.com/Misc42/sanketra) and
