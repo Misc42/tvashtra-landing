@@ -20,28 +20,16 @@ const TAG = `v${VERSION}`;
 const ASSET_BASE = `${REPO}/releases/download/${TAG}`;
 const LATEST = `${REPO}/releases`;
 
-// The AppImage is the only Linux binary path we promote — it bundles
-// OCCT 7.8 + every Tauri runtime lib inside its squashfs payload, so
-// it works out of the box on any glibc ≥ 2.31 distro. The .deb and
-// .rpm variants on the same release page link against the host's
-// OCCT 7.8, which Ubuntu 22.04 / 24.04 LTS do NOT ship (their repos
-// stop at OCCT 7.5). Listing them as a casual download would just
-// surface "library not found" crashes at first launch. They stay on
-// the Releases page for advanced users who already have OCCT 7.8
-// built from source; we don't link to them from here.
-const downloads = {
-  appimage: `${ASSET_BASE}/Tvashtra_${VERSION}_amd64.AppImage`,
-};
-
+// One Linux install path, period. The `install.sh` curl-pipe-bash
+// command handles every check: glibc, host libs, download, SHA-256
+// verify, ~/.local/bin install, desktop entry, icon cache refresh.
+// .deb / .rpm / .AppImage assets all live on the Releases page for
+// CI tooling + power users, but the landing surface offers exactly
+// one command. No manual download fallback by design.
 const INSTALL_SCRIPT_URL =
   "https://misc42.github.io/tvashtra-landing/install.sh";
 
 const oneLinerInstall = `curl -fsSL ${INSTALL_SCRIPT_URL} | bash`;
-
-const manualInstallSnippet = `# Self-contained — no apt, no sudo, no OCCT setup
-wget ${ASSET_BASE}/Tvashtra_${VERSION}_amd64.AppImage
-chmod +x Tvashtra_${VERSION}_amd64.AppImage
-./Tvashtra_${VERSION}_amd64.AppImage`;
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -125,38 +113,6 @@ export default function Install() {
               </a>
               .
             </p>
-          </div>
-
-          <div className="border-b border-rule">
-            <div className="flex items-center justify-between border-b border-rule px-5 py-3">
-              <p className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-faint">
-                Or: manual download
-              </p>
-              <CopyButton text={manualInstallSnippet} />
-            </div>
-            <pre className="command whitespace-pre-wrap px-5 py-5">
-              <code>{manualInstallSnippet}</code>
-            </pre>
-          </div>
-
-          <div className="grid gap-3 px-6 py-5">
-            <a
-              href={downloads.appimage}
-              className="flex items-center justify-between rounded-sm border border-rule px-4 py-3 transition hover:border-saffron"
-            >
-              <div>
-                <p className="font-semibold text-ink">
-                  Tvashtra_{VERSION}_amd64.AppImage
-                </p>
-                <p className="text-sm text-muted">
-                  Self-contained &mdash; OCCT, WebKit, every runtime lib
-                  bundled. Any glibc 2.31+ distro.
-                </p>
-              </div>
-              <span className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-saffron">
-                Download &rarr;
-              </span>
-            </a>
           </div>
 
           <p className="border-t border-rule px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.12em] text-faint">
