@@ -58,7 +58,17 @@ function CopyButton({ text }: { text: string }) {
 export default function Install() {
   return (
     <section id="install" className="wrap border-b border-rule py-20">
-      <p className="masthead mb-4">Install</p>
+      <div className="flex flex-wrap items-baseline justify-between gap-4">
+        <p className="masthead mb-4">Install</p>
+        <a
+          href={`${REPO}/releases/tag/${TAG}`}
+          className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-saffron underline-offset-2 hover:underline"
+          target="_blank"
+          rel="noopener"
+        >
+          Latest: v{VERSION} — release notes ↗
+        </a>
+      </div>
       <h2 className="section-title max-w-3xl">
         Linux first.{" "}
         <span className="text-muted">macOS &amp; Windows in the pipeline.</span>
@@ -74,7 +84,10 @@ export default function Install() {
           <pre className="command whitespace-pre-wrap px-5 py-6">
             <code>{oneLinerInstall}</code>
           </pre>
-          <p className="border-t border-rule px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-faint">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-rule px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-faint">
+            <span>
+              AppImage &middot; ~95 MB &middot; SHA-256 verified
+            </span>
             <a
               href={INSTALL_SCRIPT_URL}
               className="text-saffron underline-offset-2 hover:underline"
@@ -83,7 +96,24 @@ export default function Install() {
             >
               install.sh ↗
             </a>
-          </p>
+          </div>
+          <div className="border-t border-rule px-5 py-3 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-faint">
+            Power users:{" "}
+            <a
+              href={`${ASSET_BASE}/Tvashtra_${VERSION}_amd64.deb`}
+              className="text-ink underline-offset-2 hover:text-saffron hover:underline"
+            >
+              .deb
+            </a>{" "}
+            &middot;{" "}
+            <a
+              href={`${ASSET_BASE}/Tvashtra-${VERSION}-1.x86_64.rpm`}
+              className="text-ink underline-offset-2 hover:text-saffron hover:underline"
+            >
+              .rpm
+            </a>{" "}
+            (host OCCT 7.8 required)
+          </div>
         </div>
 
         <div className="flex flex-col gap-6">
