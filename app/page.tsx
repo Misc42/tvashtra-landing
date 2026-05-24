@@ -2,7 +2,6 @@ import Hero from "@/components/Hero";
 import Problem from "@/components/Problem";
 import HowItWorks from "@/components/HowItWorks";
 import Anatomy from "@/components/Anatomy";
-import Tour from "@/components/Tour";
 import Showcase from "@/components/Showcase";
 import Install from "@/components/Install";
 import TryInBrowser from "@/components/TryInBrowser";
@@ -16,7 +15,6 @@ export default function HomePage() {
       <HowItWorks />
       <Anatomy />
       <Showcase />
-      <Tour />
       <Install />
       <TryInBrowser />
       <Faq />
