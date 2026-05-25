@@ -24,7 +24,7 @@ const regions: {
     pos: [38, 3],
     align: "right",
     title: "File actions",
-    body: "New, Open, Save, Export &middot; Undo / Redo. Ctrl-keyed shortcuts share the exact same handlers.",
+    body: "New, Open, Save, Export &middot; Undo / Redo. Export covers STL, STEP, OBJ, IGES, BREP, 3MF, GLB. Ctrl-keyed shortcuts share the exact same handlers.",
   },
   {
     num: 3,
@@ -73,7 +73,7 @@ const regions: {
     pos: [80, 18],
     align: "left",
     title: "Chat composer",
-    body: "Type intent in natural language; the model picks ops from the catalog and runs them against the kernel.",
+    body: "Type intent in natural language; the model picks ops from the catalog and runs them against the kernel. Click a face in the viewport first and a Selection chip rides above the textarea so <code>@selected</code> resolves visibly before you submit.",
   },
   {
     num: 10,

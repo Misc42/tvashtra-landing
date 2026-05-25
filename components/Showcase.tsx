@@ -1,21 +1,101 @@
 import Image from "next/image";
 import { asset } from "@/lib/asset";
 
-// Side-by-side prompt → render gallery showing what Tvashtra v0.3.0 can
-// actually build end-to-end. Each card carries the literal prompt text the
-// user types, the rendered output, and the tool-call trail the model
-// dispatches into the kernel.
+// Side-by-side prompt → render gallery showing what Tvashtra can build
+// end-to-end. Each card carries the literal prompt text the user types,
+// the rendered output, and the tool-call trail the model dispatches into
+// the kernel. New v0.4-dev cards (drawings, materials, mate, tolerances)
+// sit at the top — they're the marquee work since v0.3.0 shipped. The
+// v0.3.0 cards stay below as continued proof-points; nothing about them
+// regressed.
 type Showcase = {
   id: string;
+  /** `id` doubles as the section anchor (e.g. `#showcase-drawings`) so
+   * the WhatsNew strip above the fold can jump to a card directly. */
   src: string;
   prompt: string;
   ops: string[];
   feature: string;
   title: string;
   body: string;
+  /** Optional badge above the title — used to flag "new in v0.4-dev"
+   * cards so visitors can tell the marquee work apart from the older
+   * proof-points beneath. */
+  badge?: string;
 };
 
 const showcases: Showcase[] = [
+  // --- v0.4-dev marquee work (new since v0.3.0) ---
+  {
+    id: "showcase-drawings",
+    src: "/screenshots/showcase/drawings-a4-bracket.png",
+    badge: "New · v0.4-dev",
+    prompt:
+      "Take the bracket and make an A4 engineering drawing — front, top, right, plus an iso in the fourth quadrant. Scale 1:1. Title: \"NEMA 17 mount\".",
+    ops: [
+      "cad_drawing(sheet=A4, layout=landscape, title=\"NEMA 17 mount\")",
+      "cad_drawing_view(projection=front, position=(70, 60), scale=1.0)",
+      "cad_drawing_view(projection=top,   position=(70, 130), scale=1.0)",
+      "cad_drawing_view(projection=right, position=(200, 60), scale=1.0)",
+      "cad_drawing_view(projection=iso,   position=(200, 130), scale=1.0)",
+    ],
+    feature: "2D engineering drawings · projected views · SVG out",
+    title: "From 3D model to shop drawing.",
+    body:
+      "Visible edges drawn solid. Occluded edges drawn dashed — the projector classifies them automatically via depth-buffer occlusion. SVG / PDF / DXF out the back. The same drawing the machine shop expects, generated from the same prompt that built the part.",
+  },
+  {
+    id: "showcase-materials",
+    src: "/screenshots/showcase/materials-pbr-presets.png",
+    badge: "New · v0.4-dev",
+    prompt:
+      "Make a 60×40×8 mm bracket in brushed aluminium. Then duplicate it three times: polished steel, brass, and anodized red.",
+    ops: [
+      "cad_box(60 × 40 × 8) × 4",
+      "cad_set_material(brushed_aluminum)",
+      "cad_set_material(polished_steel)",
+      "cad_set_material(brass)",
+      "cad_set_material(anodized_red)",
+    ],
+    feature: "PBR material presets · 7 stocks, one tool call each",
+    title: "Real materials, not vertex tints.",
+    body:
+      "Seven physically-grounded presets — brushed aluminium, polished steel, brass, anodized red, plastic matte, glass, studio clay — resolve to PBR base colour, metallic, and roughness at MaterialUbo bind time. No texture maps to ship, no shader edits. Tag a shape, the renderer handles the rest.",
+  },
+  {
+    id: "showcase-mate",
+    src: "/screenshots/showcase/mate-flange-pair.png",
+    badge: "New · v0.4-dev",
+    prompt:
+      "Stack the second flange concentric on the first along the bolt circle, faces flush. Keep the mate so they re-solve if I move either one.",
+    ops: [
+      "cad_insert_part(ISO 4032 M8 hex nut) × 2",
+      "cad_mate(kind=concentric, source=flange_b, target=flange_a)",
+      "cad_mate(kind=coincident, source=flange_b/top, target=flange_a/bottom)",
+    ],
+    feature: "Persistent assembly mate · 6 SOLIDWORKS-style kinds",
+    title: "Constraints that outlive the call.",
+    body:
+      "Unlike a one-shot align, a mate is stored on the document. Concentric, coincident, parallel, perpendicular, distance, angle. Move a participating part later and the solver re-runs — the moved shape stays bound. Single-constraint resolution today; chained DOF analysis lands in v0.5.",
+  },
+  {
+    id: "showcase-tolerance",
+    src: "/screenshots/showcase/tolerance-selection-fit.png",
+    badge: "New · v0.4-dev",
+    prompt:
+      "Click the bore face. Now apply an H7 hole-basis fit. Then chamfer the four top edges I just selected — 0.5 mm.",
+    ops: [
+      "cad_select(name=\"bore\", face_ids=[6])  — from viewport click",
+      "cad_tolerance(entity_ref=@selected, kind=fit_h7)",
+      "cad_select(name=\"top_edges\", edge_ids=[12, 13, 14, 15])",
+      "cad_chamfer(edge_refs=@group:top_edges, distance=0.5)",
+    ],
+    feature: "Click-to-select · GD&T bands · named groups across turns",
+    title: "Pick a face. Type intent. The model already knows the ID.",
+    body:
+      "Click the viewport, the SelectionChip lights up above the chat. \"@selected.faces[0]\" resolves to the face you picked. Register a named group, address it across turns. Tolerances ride alongside the geometry — linear, angular, ISO 286 H7/G6/N6 fit bands — persisted in the .tvr, surfaced in the Inspector.",
+  },
+  // --- v0.3.0 proof-points (still live, still correct) ---
   {
     id: "motor-mount-bracket",
     src: "/screenshots/showcase/motor-mount-bracket.png",
@@ -98,8 +178,8 @@ export default function Showcase() {
     <section id="showcase" className="wrap border-b border-rule py-20">
       <p className="masthead mb-4">Features in action</p>
       <h2 className="section-title max-w-3xl">
-        Five parts.{" "}
-        <span className="text-saffron">Five prompts.</span>
+        Nine parts.{" "}
+        <span className="text-saffron">Nine prompts.</span>
         <br />
         <span className="text-muted">Zero clicks.</span>
       </h2>
@@ -107,12 +187,17 @@ export default function Showcase() {
         Each card is the literal text the user typed, the exact tool calls the
         model dispatched into the OCCT kernel, and the rendered output the
         viewport sent back — the same image the model saw before it answered
-        &ldquo;done.&rdquo;
+        &ldquo;done.&rdquo; Top row is the v0.4-dev wave; the older v0.3.0
+        proof-points follow.
       </p>
 
       <div className="mt-14 grid gap-10 lg:grid-cols-2">
         {showcases.map((s) => (
-          <article key={s.id} className="card overflow-hidden">
+          <article
+            key={s.id}
+            id={s.id}
+            className="card scroll-mt-24 overflow-hidden"
+          >
             <div className="relative aspect-[4/3] w-full bg-paper">
               <Image
                 src={asset(s.src)}
@@ -121,6 +206,11 @@ export default function Showcase() {
                 sizes="(min-width: 1024px) 540px, 100vw"
                 className="object-contain"
               />
+              {s.badge && (
+                <span className="absolute right-3 top-3 rounded-sm border border-saffron/60 bg-paper/90 px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-saffron backdrop-blur-sm">
+                  {s.badge}
+                </span>
+              )}
             </div>
             <div className="space-y-4 border-t border-rule px-6 py-5">
               <p className="masthead text-saffron">{s.feature}</p>
