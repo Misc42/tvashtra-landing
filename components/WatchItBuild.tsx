@@ -28,7 +28,7 @@ export default function WatchItBuild() {
             call — the same image the model saw before it answered. No
             tessellation tricks, no recorded screen, no offline post.
           </p>
-          <ol className="mt-8 space-y-3 font-mono text-[0.78rem] uppercase tracking-[0.14em]">
+          <ol className="mt-8 space-y-3 label">
             <li className="flex gap-3">
               <span className="text-saffron">01</span>
               <span className="text-ink">

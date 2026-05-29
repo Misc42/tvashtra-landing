@@ -27,7 +27,7 @@ export default function TryInBrowser() {
             your own Gemini / Claude / OpenAI key &mdash; nothing routes
             through us.
           </p>
-          <ul className="space-y-2 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-faint">
+          <ul className="space-y-2 label text-faint">
             <li>&middot; BYO API key (Anthropic / Gemini / OpenAI / Ollama)</li>
             <li>&middot; No backend, no account, no telemetry</li>
             <li>&middot; Export STL / STEP / OBJ directly from the tab</li>

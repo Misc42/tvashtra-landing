@@ -17,7 +17,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="wrap flex items-center justify-between py-7 font-mono text-[0.78rem] uppercase tracking-[0.08em] text-faint">
+    <header className="wrap flex items-center justify-between py-7 label text-faint">
       <Link
         href="/"
         className="group flex items-baseline gap-2 border-b border-transparent text-ink"
