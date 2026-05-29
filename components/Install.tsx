@@ -48,7 +48,7 @@ function CopyButton({ text }: { text: string }) {
     <button
       type="button"
       onClick={copy}
-      className="rounded-sm border border-rule px-3 py-2 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-ink transition hover:border-saffron hover:text-saffron"
+      className="label rounded-sm border border-rule px-3 py-2 text-[0.66rem] text-ink transition hover:border-saffron hover:text-saffron"
     >
       {copied ? "Copied" : "Copy"}
     </button>
@@ -62,7 +62,7 @@ export default function Install() {
         <p className="masthead mb-4">Install</p>
         <a
           href={`${REPO}/releases/tag/${TAG}`}
-          className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-saffron underline-offset-2 hover:underline"
+          className="label text-[0.68rem] text-saffron underline-offset-2 hover:underline"
           target="_blank"
           rel="noopener"
         >
@@ -76,7 +76,7 @@ export default function Install() {
       <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
         <div className="card overflow-hidden">
           <div className="flex items-center justify-between border-b border-rule px-5 py-3">
-            <p className="font-mono text-[0.72rem] uppercase tracking-[0.14em] text-saffron">
+            <p className="label text-saffron">
               Linux &middot; paste, hit Enter
             </p>
             <CopyButton text={oneLinerInstall} />
@@ -84,7 +84,7 @@ export default function Install() {
           <pre className="command whitespace-pre-wrap px-5 py-6">
             <code>{oneLinerInstall}</code>
           </pre>
-          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-rule px-5 py-3 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-faint">
+          <div className="label flex flex-wrap items-center justify-between gap-3 border-t border-rule px-5 py-3 text-faint">
             <span>
               AppImage &middot; ~95 MB &middot; SHA-256 verified
             </span>
@@ -97,7 +97,7 @@ export default function Install() {
               install.sh ↗
             </a>
           </div>
-          <div className="border-t border-rule px-5 py-3 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-faint">
+          <div className="label border-t border-rule px-5 py-3 text-faint">
             Power users:{" "}
             <a
               href={`${ASSET_BASE}/Tvashtra_${VERSION}_amd64.deb`}
@@ -126,7 +126,7 @@ export default function Install() {
             </p>
             <a
               href={LATEST}
-              className="mt-2 inline-flex items-center gap-2 self-start font-mono text-[0.7rem] uppercase tracking-[0.14em] text-saffron hover:underline"
+              className="label mt-2 inline-flex items-center gap-2 self-start text-[0.68rem] text-saffron hover:underline"
             >
               Track on releases &rarr;
             </a>
@@ -140,7 +140,7 @@ export default function Install() {
             </p>
             <a
               href={LATEST}
-              className="mt-2 inline-flex items-center gap-2 self-start font-mono text-[0.7rem] uppercase tracking-[0.14em] text-saffron hover:underline"
+              className="label mt-2 inline-flex items-center gap-2 self-start text-[0.68rem] text-saffron hover:underline"
             >
               Track on releases &rarr;
             </a>

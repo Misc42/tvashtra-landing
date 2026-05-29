@@ -76,7 +76,7 @@ export default function WaitlistForm({
       <button
         type="submit"
         disabled={disabled}
-        className="inline-flex items-center justify-center rounded-sm border border-saffron bg-saffron px-5 py-3 font-mono text-[0.74rem] uppercase tracking-[0.14em] text-paper transition hover:bg-transparent hover:text-saffron disabled:cursor-not-allowed disabled:opacity-60"
+        className="label inline-flex items-center justify-center rounded-sm border border-saffron bg-saffron px-5 py-3 text-[0.72rem] text-paper transition hover:bg-transparent hover:text-saffron disabled:cursor-not-allowed disabled:opacity-60"
       >
         {status === "submitting" ? "Sending..." : "Join the beta"}
       </button>

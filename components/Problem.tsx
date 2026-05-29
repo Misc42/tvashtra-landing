@@ -26,7 +26,7 @@ export default function Problem() {
       <div className="mt-12 grid gap-8 lg:grid-cols-3">
         {bullets.map((b) => (
           <article key={b.title} className="border-t border-rule pt-5">
-            <h3 className="text-xl font-semibold text-ink">{b.title}</h3>
+            <h3 className="card-title">{b.title}</h3>
             <p className="mt-3 text-muted">{b.body}</p>
           </article>
         ))}
@@ -34,7 +34,7 @@ export default function Problem() {
 
       <div className="mt-16 grid gap-6 lg:grid-cols-2">
         <figure className="card overflow-hidden">
-          <p className="border-b border-rule px-5 py-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-faint">
+          <p className="border-b border-rule px-5 py-3 label text-faint">
             Without verification
           </p>
           <div className="relative aspect-[4/3] w-full bg-paper">
@@ -52,7 +52,7 @@ export default function Problem() {
           </figcaption>
         </figure>
         <figure className="card overflow-hidden">
-          <p className="border-b border-rule px-5 py-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-saffron">
+          <p className="border-b border-rule px-5 py-3 label text-saffron">
             With closed-loop feedback
           </p>
           <div className="relative aspect-[4/3] w-full bg-paper">

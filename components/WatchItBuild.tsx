@@ -20,7 +20,7 @@ export default function WatchItBuild() {
             <br />
             <span className="text-muted">No mouse.</span>
           </h2>
-          <p className="serif-italic mt-6 text-xl text-muted">
+          <p className="lead mt-6 text-xl">
             The chat goes in. The geometry comes out.
           </p>
           <p className="mt-6 text-base leading-relaxed text-muted">
@@ -75,7 +75,7 @@ export default function WatchItBuild() {
               aria-label="Looping clip — a motor-mount bracket being built three ops at a time"
             />
           </div>
-          <figcaption className="flex items-center justify-between gap-4 border-t border-rule px-5 py-3 font-mono text-[0.66rem] uppercase tracking-[0.14em] text-faint">
+          <figcaption className="label flex items-center justify-between gap-4 border-t border-rule px-5 py-3 text-faint">
             <span>OCCT 7.8 &middot; HDR studio &middot; live kernel</span>
             <span className="text-saffron">~6s loop</span>
           </figcaption>

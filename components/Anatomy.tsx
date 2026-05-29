@@ -132,11 +132,11 @@ export default function Anatomy() {
                 }`}
                 style={{ width: 240 }}
               >
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-saffron">
+                <p className="label text-[0.6rem] text-saffron">
                   {r.num.toString().padStart(2, "0")} &middot; {r.title}
                 </p>
                 <p
-                  className="mt-1 text-[12px] leading-snug text-muted"
+                  className="mt-1 text-[0.78rem] leading-snug text-muted"
                   dangerouslySetInnerHTML={{ __html: r.body }}
                 />
               </div>
@@ -148,11 +148,11 @@ export default function Anatomy() {
       <ol className="mt-10 grid gap-x-10 gap-y-4 text-sm md:grid-cols-2 lg:grid-cols-3">
         {regions.map((r) => (
           <li key={r.num} className="flex gap-3">
-            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-saffron">
+            <span className="label text-[0.6rem] text-saffron">
               {r.num.toString().padStart(2, "0")}
             </span>
             <div>
-              <p className="font-semibold text-ink">{r.title}</p>
+              <p className="font-semibold tracking-[-0.01em] text-ink">{r.title}</p>
               <p
                 className="mt-1 text-muted"
                 dangerouslySetInnerHTML={{ __html: r.body }}

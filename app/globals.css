@@ -55,6 +55,7 @@ body {
   font-family: var(--font-sans);
   font-weight: 400;
   line-height: 1.55;
+  letter-spacing: -0.003em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -100,19 +101,81 @@ footer {
   margin: 0 auto;
 }
 
+/* ─── Type system ───────────────────────────────────────────────────
+   One ladder, three families, deliberate rhythm.
+   - display  → Instrument Serif, the editorial hero/section voice
+   - section  → Plex Sans, tight, the workhorse heading
+   - eyebrow  → Plex Mono, uppercase, wide tracking — every kicker/label
+   Mono labels share ONE size+tracking so the page reads as one system,
+   not a dozen one-off magic numbers. */
+
+/* eyebrow + masthead are the same mono-uppercase kicker; masthead just
+   carries the saffron brand colour. Tracking 0.2em ≈ misc42's 0.18/0.22. */
+.eyebrow,
 .masthead {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.18em;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
+}
+
+.eyebrow {
+  color: var(--ink-muted);
+}
+
+.masthead {
   color: var(--accent-warm);
 }
 
+/* Smaller mono label for captions / figure meta / chip text. Same family,
+   same tracking, one step down — consolidates the old grab-bag of
+   text-[0.62rem]…text-[0.68rem] inline sizes. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  line-height: 1.4;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* Hero / marquee display — the elegant editorial move. Serif, very tight
+   leading, optical negative tracking so the large size doesn't gap out. */
+.display {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 7vw, 6rem);
+  line-height: 0.94;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+}
+
+/* Section headings — Plex Sans, tightened. Lower-cased number range gives
+   editorial weight without going full display on every section. */
 .section-title {
   margin: 0;
-  font-size: clamp(2rem, 4vw, 4rem);
-  line-height: 1.02;
+  font-size: clamp(1.9rem, 3.6vw, 3.4rem);
+  line-height: 1;
+  letter-spacing: -0.018em;
+  font-weight: 600;
+}
+
+/* Sub-section / card heading — one rung below section-title. */
+.card-title {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Editorial standfirst — the serif-italic lead under a heading. */
+.lead {
+  font-family: var(--font-serif);
+  font-style: italic;
+  line-height: 1.25;
   letter-spacing: 0;
+  color: var(--ink-muted);
 }
 
 .serif-italic {

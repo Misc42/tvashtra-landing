@@ -42,9 +42,7 @@ export default function TermsPage() {
         <p>
           Disputes governed by the laws of India. Forum: Delhi NCT.
         </p>
-        <p className="font-mono text-xs uppercase tracking-[0.14em] text-faint">
-          Last updated: 2026-05-14
-        </p>
+        <p className="label text-faint">Last updated: 2026-05-14</p>
       </div>
     </main>
   );

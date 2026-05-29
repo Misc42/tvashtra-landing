@@ -207,29 +207,25 @@ export default function Showcase() {
                 className="object-contain"
               />
               {s.badge && (
-                <span className="absolute right-3 top-3 rounded-sm border border-saffron/60 bg-paper/90 px-2 py-0.5 font-mono text-[0.6rem] uppercase tracking-[0.14em] text-saffron backdrop-blur-sm">
+                <span className="label absolute right-3 top-3 rounded-sm border border-saffron/60 bg-paper/90 px-2 py-0.5 text-[0.6rem] text-saffron backdrop-blur-sm">
                   {s.badge}
                 </span>
               )}
             </div>
             <div className="space-y-4 border-t border-rule px-6 py-5">
-              <p className="masthead text-saffron">{s.feature}</p>
-              <h3 className="text-lg font-semibold leading-tight text-ink">
-                {s.title}
-              </h3>
+              <p className="label text-saffron">{s.feature}</p>
+              <h3 className="card-title">{s.title}</h3>
               <p className="text-sm text-muted">{s.body}</p>
 
               <div className="rounded-sm border border-rule bg-paper/60 px-4 py-3">
-                <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-faint">
-                  You typed
-                </p>
-                <p className="serif-italic mt-1 text-sm text-ink">
+                <p className="label text-[0.6rem] text-faint">You typed</p>
+                <p className="serif-italic mt-1.5 text-[0.95rem] leading-snug text-ink">
                   &ldquo;{s.prompt}&rdquo;
                 </p>
               </div>
 
               <div>
-                <p className="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-faint">
+                <p className="label text-[0.6rem] text-faint">
                   The model dispatched
                 </p>
                 <ul className="mt-2 space-y-1 font-mono text-[0.74rem] leading-relaxed text-muted">

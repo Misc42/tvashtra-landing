@@ -10,7 +10,7 @@ const links = [
 export default function Footer() {
   return (
     <footer className="wrap mt-24 flex flex-col gap-5 border-t border-rule py-10 text-sm text-muted md:flex-row md:items-center md:justify-between">
-      <nav className="flex flex-wrap gap-5 font-mono text-[0.72rem] uppercase tracking-[0.14em]">
+      <nav className="label flex flex-wrap gap-5">
         {links.map(([label, href]) => (
           <Link
             key={href}

@@ -33,7 +33,7 @@ export default function Faq() {
       <dl className="mt-12 grid gap-x-12 gap-y-10 lg:grid-cols-2">
         {items.map((item) => (
           <div key={item.q} className="border-t border-rule pt-5">
-            <dt className="text-lg font-semibold text-ink">{item.q}</dt>
+            <dt className="card-title">{item.q}</dt>
             <dd className="mt-3 text-muted">{item.a}</dd>
           </div>
         ))}

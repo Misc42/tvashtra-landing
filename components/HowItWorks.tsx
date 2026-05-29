@@ -28,7 +28,7 @@ export default function HowItWorks() {
         <div>
           <p className="masthead mb-4">How it works</p>
           <h2 className="section-title">Four loops, not four hundred menus.</h2>
-          <p className="serif-italic mt-6 text-xl text-muted">
+          <p className="lead mt-6 text-xl">
             Talk &rarr; build &rarr; see &rarr; keep. The closed loop is the
             whole product.
           </p>
@@ -39,10 +39,8 @@ export default function HowItWorks() {
               key={s.eyebrow}
               className="card flex flex-col gap-3 p-7 transition hover:border-saffron"
             >
-              <p className="masthead text-saffron">{s.eyebrow}</p>
-              <h3 className="text-xl font-semibold leading-tight text-ink">
-                {s.title}
-              </h3>
+              <p className="label text-saffron">{s.eyebrow}</p>
+              <h3 className="card-title">{s.title}</h3>
               <p className="text-muted">{s.body}</p>
             </article>
           ))}

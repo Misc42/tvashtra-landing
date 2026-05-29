@@ -11,13 +11,13 @@ export default function TryInBrowser() {
             <br />
             <span className="text-saffron">in your browser.</span>
           </h2>
-          <p className="serif-italic mt-6 text-xl text-muted">
+          <p className="lead mt-6 text-xl">
             No install. Your API key. Your geometry.
           </p>
         </div>
         <div className="card flex flex-col gap-5 p-7">
-          <p className="masthead text-saffron">Honest timeline</p>
-          <h3 className="text-xl font-semibold text-ink">
+          <p className="label text-saffron">Honest timeline</p>
+          <h3 className="card-title">
             Kernel-to-WASM port is real engineering.
           </h3>
           <p className="text-muted">
@@ -27,7 +27,7 @@ export default function TryInBrowser() {
             your own Gemini / Claude / OpenAI key &mdash; nothing routes
             through us.
           </p>
-          <ul className="space-y-2 font-mono text-[0.74rem] uppercase tracking-[0.12em] text-faint">
+          <ul className="space-y-2 font-mono text-[0.72rem] uppercase tracking-[0.16em] text-faint">
             <li>&middot; BYO API key (Anthropic / Gemini / OpenAI / Ollama)</li>
             <li>&middot; No backend, no account, no telemetry</li>
             <li>&middot; Export STL / STEP / OBJ directly from the tab</li>
