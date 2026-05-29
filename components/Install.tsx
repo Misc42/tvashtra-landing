@@ -15,7 +15,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 // alpha (`--prerelease`). Bump VERSION + the v* tag in lockstep
 // when cutting a new release.
 const REPO = "https://github.com/Misc42/tvashtra-landing";
-const VERSION = "0.6.0";
+const VERSION = "0.7.0";
 const TAG = `v${VERSION}`;
 const ASSET_BASE = `${REPO}/releases/download/${TAG}`;
 const LATEST = `${REPO}/releases`;

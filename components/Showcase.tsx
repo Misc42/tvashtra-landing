@@ -4,10 +4,10 @@ import { asset } from "@/lib/asset";
 // Side-by-side prompt → render gallery showing what Tvashtra can build
 // end-to-end. Each card carries the literal prompt text the user types,
 // the rendered output, and the tool-call trail the model dispatches into
-// the kernel. New v0.4-dev cards (drawings, materials, mate, tolerances)
-// sit at the top — they're the marquee work since v0.3.0 shipped. The
-// v0.3.0 cards stay below as continued proof-points; nothing about them
-// regressed.
+// the kernel. The v0.7 marquee work — the live interactive viewport with
+// in-canvas von-Mises stress — sits at the top; the earlier drawings /
+// materials / mate / tolerance / proof-point cards follow as continued
+// evidence, nothing about them regressed.
 type Showcase = {
   id: string;
   /** `id` doubles as the section anchor (e.g. `#showcase-drawings`) so
@@ -18,18 +18,35 @@ type Showcase = {
   feature: string;
   title: string;
   body: string;
-  /** Optional badge above the title — used to flag "new in v0.4-dev"
-   * cards so visitors can tell the marquee work apart from the older
+  /** Optional badge above the title — used to flag the newest marquee
+   * card so visitors can tell the latest work apart from the older
    * proof-points beneath. */
   badge?: string;
 };
 
 const showcases: Showcase[] = [
-  // --- v0.4-dev marquee work (new since v0.3.0) ---
+  // --- v0.7 marquee work (live interactive viewport) ---
+  {
+    id: "showcase-stress",
+    src: "/screenshots/showcase/live-stress-overlay.png",
+    badge: "New · v0.7",
+    prompt:
+      "Clamp the bottom face of the pillar, push -100 N straight down on the top, steel. Show me where it yields — and keep it live as I tweak the geometry.",
+    ops: [
+      "cad_select(name=\"base\", face_ids=[0])  — clamp face, from viewport click",
+      "cad_select(name=\"top\",  face_ids=[5])  — load face",
+      "cad_stress(clamp=@base, load=@top, force=(0, 0, -100), material=steel_1018)",
+      "cad_stress(auto_solve=true)  — re-runs on every geometry edit",
+    ],
+    feature: "Live von-Mises stress · in-viewport heatmap · turbo + MPa legend",
+    title: "Stress, live in the viewport.",
+    body:
+      "von-Mises heatmap drawn straight onto the deformed part in the live 3D canvas — turbo colormap, peak σ called out (184 MPa here), MPa legend bottom-right. Auto-solve re-runs the FEM as the geometry changes, so the colours track your edits in place. No still image to wait on, no export round-trip to a separate analysis tool.",
+  },
+  // --- earlier marquee work (drawings, materials, mate, tolerances) ---
   {
     id: "showcase-drawings",
     src: "/screenshots/showcase/drawings-a4-bracket.png",
-    badge: "New · v0.4-dev",
     prompt:
       "Take the bracket and make an A4 engineering drawing — front, top, right, plus an iso in the fourth quadrant. Scale 1:1. Title: \"NEMA 17 mount\".",
     ops: [
@@ -47,7 +64,6 @@ const showcases: Showcase[] = [
   {
     id: "showcase-materials",
     src: "/screenshots/showcase/materials-pbr-presets.png",
-    badge: "New · v0.4-dev",
     prompt:
       "Make a 60×40×8 mm bracket in brushed aluminium. Then duplicate it three times: polished steel, brass, and anodized red.",
     ops: [
@@ -65,7 +81,6 @@ const showcases: Showcase[] = [
   {
     id: "showcase-mate",
     src: "/screenshots/showcase/mate-flange-pair.png",
-    badge: "New · v0.4-dev",
     prompt:
       "Stack the second flange concentric on the first along the bolt circle, faces flush. Keep the mate so they re-solve if I move either one.",
     ops: [
@@ -81,7 +96,6 @@ const showcases: Showcase[] = [
   {
     id: "showcase-tolerance",
     src: "/screenshots/showcase/tolerance-selection-fit.png",
-    badge: "New · v0.4-dev",
     prompt:
       "Click the bore face. Now apply an H7 hole-basis fit. Then chamfer the four top edges I just selected — 0.5 mm.",
     ops: [
@@ -178,8 +192,8 @@ export default function Showcase() {
     <section id="showcase" className="wrap border-b border-rule py-20">
       <p className="masthead mb-4">Features in action</p>
       <h2 className="section-title max-w-3xl">
-        Nine parts.{" "}
-        <span className="text-saffron">Nine prompts.</span>
+        Ten parts.{" "}
+        <span className="text-saffron">Ten prompts.</span>
         <br />
         <span className="text-muted">Zero clicks.</span>
       </h2>
@@ -187,8 +201,8 @@ export default function Showcase() {
         Each card is the literal text the user typed, the exact tool calls the
         model dispatched into the OCCT kernel, and the rendered output the
         viewport sent back — the same image the model saw before it answered
-        &ldquo;done.&rdquo; Top row is the v0.4-dev wave; the older v0.3.0
-        proof-points follow.
+        &ldquo;done.&rdquo; The live interactive viewport leads; the earlier
+        waves follow as proof-points.
       </p>
 
       <div className="mt-14 grid gap-10 lg:grid-cols-2">
