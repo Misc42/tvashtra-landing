@@ -29,21 +29,25 @@ const pills = [
   },
 ];
 
-// v0.8 wave — on `main`, not yet in a tagged download (current install is
-// v0.7.0). Shown as "now building" so the page tracks real progress without
-// claiming capabilities the shipped binary doesn't have.
-const building = [
+// v0.8 wave — shipped in the tagged download (current install is v0.8.0).
+// The MCAD spine the competitive audit flagged: editable parametrics, real
+// assemblies, and the URDF/kinematics path, all reachable end-to-end.
+const shipped08 = [
   {
-    label: "STEP / IGES import + heal",
-    detail: "Open a supplier B-rep, auto-stitch & fix with ShapeFix",
+    label: "Editable feature tree",
+    detail: "Reopen a feature, change a scalar — the tail re-replays",
   },
   {
-    label: "Real sketch constraints",
-    detail: "Full 16-constraint solver + fully-defined feedback",
+    label: "Assemblies + joints + BOM",
+    detail: "Instance tree, typed revolute / prismatic / fixed joints",
   },
   {
-    label: "Editable parametrics",
-    detail: "Stable face IDs — the path to “change all M5 holes to M6”",
+    label: "URDF export + kinematics",
+    detail: "Robot description out; FK / Jacobian / motor sizing",
+  },
+  {
+    label: "Import + real constraints",
+    detail: "STEP / IGES heal · 16-constraint solver · materials",
   },
 ];
 
@@ -85,11 +89,11 @@ export default function WhatsNew() {
       </div>
 
       <div className="mt-8 flex flex-col gap-3 border-t border-rule pt-6 lg:flex-row lg:items-center lg:gap-8">
-        <p className="masthead flex-shrink-0 text-faint">
-          v0.8 &middot; now building
+        <p className="masthead flex-shrink-0 text-saffron">
+          v0.8 &middot; shipped
         </p>
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:gap-6">
-          {building.map((b) => (
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex lg:flex-wrap lg:gap-6">
+          {shipped08.map((b) => (
             <li key={b.label} className="flex flex-col items-start gap-0.5">
               <span className="label text-[0.62rem] text-muted">
                 {b.label}
