@@ -29,6 +29,24 @@ const pills = [
   },
 ];
 
+// v0.8 wave — on `main`, not yet in a tagged download (current install is
+// v0.7.0). Shown as "now building" so the page tracks real progress without
+// claiming capabilities the shipped binary doesn't have.
+const building = [
+  {
+    label: "STEP / IGES import + heal",
+    detail: "Open a supplier B-rep, auto-stitch & fix with ShapeFix",
+  },
+  {
+    label: "Real sketch constraints",
+    detail: "Full 16-constraint solver + fully-defined feedback",
+  },
+  {
+    label: "Editable parametrics",
+    detail: "Stable face IDs — the path to “change all M5 holes to M6”",
+  },
+];
+
 export default function WhatsNew() {
   return (
     <section
@@ -61,6 +79,24 @@ export default function WhatsNew() {
                   {p.detail}
                 </span>
               </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-8 flex flex-col gap-3 border-t border-rule pt-6 lg:flex-row lg:items-center lg:gap-8">
+        <p className="masthead flex-shrink-0 text-faint">
+          v0.8 &middot; now building
+        </p>
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:gap-6">
+          {building.map((b) => (
+            <li key={b.label} className="flex flex-col items-start gap-0.5">
+              <span className="label text-[0.62rem] text-muted">
+                {b.label}
+              </span>
+              <span className="text-[0.72rem] leading-tight text-faint">
+                {b.detail}
+              </span>
             </li>
           ))}
         </ul>
