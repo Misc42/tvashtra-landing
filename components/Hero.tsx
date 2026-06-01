@@ -6,7 +6,17 @@ export default function Hero() {
   return (
     <section className="wrap grid gap-14 border-b border-rule pb-20 pt-12 lg:grid-cols-[0.95fr_1fr] lg:items-center">
       <div className="flex flex-col items-start">
-        <p className="masthead mb-5">Tvashtra &middot; Misc42 Labs</p>
+        <p className="masthead mb-5">
+          Tvashtra &middot;{" "}
+          <a
+            href="https://github.com/Misc42"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="transition hover:text-saffron"
+          >
+            Misc42 Labs
+          </a>
+        </p>
         <h1 className="display max-w-xl">
           LLM-driven CAD,
           <br />

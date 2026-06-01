@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 const links = [
+  ["Misc42 Labs", "https://github.com/Misc42"],
   ["Privacy", "/privacy"],
   ["Terms", "/terms"],
   ["GitHub", "https://github.com/Misc42/tvashtra-landing"],
