@@ -29,25 +29,25 @@ const pills = [
   },
 ];
 
-// v0.8 wave — shipped in the tagged download (current install is v0.8.0).
-// The MCAD spine the competitive audit flagged: editable parametrics, real
-// assemblies, and the URDF/kinematics path, all reachable end-to-end.
-const shipped08 = [
+// v0.9 wave — shipped in the tagged download (current install is v0.9.0).
+// The full mechatronics arc reachable conversationally: mechanical + simulation
+// + robotics + electronics, each from a prompt.
+const shipped09 = [
   {
-    label: "Editable feature tree",
-    detail: "Reopen a feature, change a scalar — the tail re-replays",
+    label: "Simulation suite",
+    detail: "Stress · fatigue life · modal (resonance) · buckling",
   },
   {
-    label: "Assemblies + joints + BOM",
-    detail: "Instance tree, typed revolute / prismatic / fixed joints",
+    label: "Electronics (KiCad)",
+    detail: "Emit a real .kicad_pcb board outline from a prompt",
   },
   {
-    label: "URDF export + kinematics",
-    detail: "Robot description out; FK / Jacobian / motor sizing",
+    label: "Assemblies → robots",
+    detail: "Typed joints + BOM; URDF export, FK / Jacobian",
   },
   {
-    label: "Import + real constraints",
-    detail: "STEP / IGES heal · 16-constraint solver · materials",
+    label: "Editable parametrics",
+    detail: "“Change all M5 holes to M6” — the model rebuilds",
   },
 ];
 
@@ -90,10 +90,10 @@ export default function WhatsNew() {
 
       <div className="mt-8 flex flex-col gap-3 border-t border-rule pt-6 lg:flex-row lg:items-center lg:gap-8">
         <p className="masthead flex-shrink-0 text-saffron">
-          v0.8 &middot; shipped
+          v0.9 &middot; shipped
         </p>
         <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex lg:flex-wrap lg:gap-6">
-          {shipped08.map((b) => (
+          {shipped09.map((b) => (
             <li key={b.label} className="flex flex-col items-start gap-0.5">
               <span className="label text-[0.62rem] text-muted">
                 {b.label}
