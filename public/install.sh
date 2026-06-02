@@ -91,8 +91,18 @@ check_glibc() {
         warn "ldd not found — skipping glibc version check"
         return 0
     fi
-    local v
-    v=$(ldd --version 2>&1 | head -1 | grep -oE '[0-9]+\.[0-9]+' | head -1)
+    # Parse the glibc version WITHOUT a `grep | head` pipe: the old form
+    # (`grep -oE … | head -1`) raced SIGPIPE — head closes the pipe after the
+    # first match while grep is still writing the rest — and under
+    # `set -o pipefail` + `set -e` that killed the WHOLE installer silently
+    # (exit 141) right here at pre-flight. Read ldd's first line into a var,
+    # then pull the first version out with a bash regex — no pipe, no race,
+    # no surprise extra matches from the distro suffix (…ubuntu3.13) 2.35).
+    local v="" out
+    out=$(ldd --version 2>&1)
+    if [[ "$out" =~ ([0-9]+\.[0-9]+) ]]; then
+        v="${BASH_REMATCH[1]}"
+    fi
     if [ -z "$v" ]; then
         warn "could not parse glibc version — proceeding anyway"
         return 0
@@ -132,7 +142,18 @@ check_webkit_gtk() {
         printf "      ${BOLD}sudo apt install libwebkit2gtk-4.1-0 libgtk-3-0 libsoup-3.0-0 libjavascriptcoregtk-4.1-0${NC}\n"
         printf "    ${DIM}On Fedora:${NC}\n"
         printf "      ${BOLD}sudo dnf install webkit2gtk4.1 gtk3 libsoup3${NC}\n\n"
-        read -rp "    Try to install them now via sudo? [y/N] " yn
+        # Read from the controlling terminal, NOT stdin: under `curl … | bash`
+        # stdin is the script pipe, so a plain `read` gets EOF instantly and the
+        # installer aborts without the user ever seeing the prompt. /dev/tty is
+        # the real terminal, attached even when stdin is redirected. Probe that
+        # it actually opens (a bare `[ -r /dev/tty ]` can pass while the open
+        # still fails on a session with no controlling tty, e.g. CI) so we
+        # degrade cleanly to the printed instructions instead of erroring out.
+        if { : < /dev/tty; } 2>/dev/null; then
+            read -rp "    Try to install them now via sudo? [y/N] " yn < /dev/tty
+        else
+            yn=""
+        fi
         case "$yn" in
             y|Y|yes)
                 if command -v apt-get &>/dev/null; then
@@ -167,7 +188,7 @@ check_disk_space() {
 check_existing() {
     if [ -x "${APPIMAGE_PATH}" ]; then
         local current
-        current=$("${APPIMAGE_PATH}" --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1 || echo "?")
+        current=$("${APPIMAGE_PATH}" --version 2>/dev/null | grep -m1 -oE '[0-9]+\.[0-9]+\.[0-9]+' || echo "?")
         if [ "$current" = "${VERSION}" ]; then
             info "Tvashtra v${VERSION} already installed at ${APPIMAGE_PATH} — nothing to do"
             info "launch from your Activities search: ${BOLD}Tvashtra${NC}"
