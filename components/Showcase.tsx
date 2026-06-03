@@ -101,6 +101,24 @@ const showcases: Showcase[] = [
       "The eigenmode solve returns the natural frequencies and the deformation shape for each. The clip sweeps the first mode so you see exactly how the plate flexes when it rings. The vibration question every mechatronic part has to answer — answered in the same chat that built it.",
   },
   {
+    id: "showcase-thermal",
+    src: "/screenshots/showcase/thermal.mp4",
+    video: true,
+    poster: "/screenshots/showcase/thermal-poster.jpg",
+    badge: "Differentiator",
+    prompt:
+      "The regulator dumps ~1.8 W and the MCU ~1 W into this board. Show me where it runs hot.",
+    ops: [
+      "cad_thermal(source=@regulator, power=1.8W, ambient=25 °C)",
+      "cad_thermal(source=@mcu, power=1.0W)",
+      "cad_render(field=temperature)  — °C heatmap painted on the board",
+    ],
+    feature: "Steady-state thermal FEM · temperature field · heatmap",
+    title: "See the heat before the board does.",
+    body:
+      "A real steady-state heat-transfer solve — the same FEM engine behind the stress and modal cards. Power dissipated at the components conducts through the board and sheds off the cooler edges; the temperature field is drawn straight onto the part — hottest at the power components (red), coolest at the rim (blue). The thermal question answered in the conversation that laid out the board, not on the bench with a thermal camera.",
+  },
+  {
     id: "showcase-explode",
     src: "/screenshots/showcase/explode.mp4",
     video: true,
