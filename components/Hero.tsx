@@ -4,12 +4,12 @@ import { asset } from "@/lib/asset";
 
 export default function Hero() {
   return (
-    <section className="wrap grid gap-14 border-b border-rule pb-20 pt-12 lg:grid-cols-[0.95fr_1fr] lg:items-center">
+    <section className="wrap grid gap-14 border-b border-rule pb-24 pt-14 lg:grid-cols-[0.95fr_1fr] lg:items-center">
       <div className="flex flex-col items-start">
-        <p className="masthead mb-5">
+        <p className="masthead mb-7">
           Tvashtra &middot;{" "}
           <a
-            href="https://github.com/Misc42"
+            href="https://misc42.github.io/misc42labs/"
             target="_blank"
             rel="noopener noreferrer"
             className="transition hover:text-saffron"
@@ -17,26 +17,31 @@ export default function Hero() {
             Misc42 Labs
           </a>
         </p>
-        <h1 className="display max-w-xl">
-          LLM-driven CAD,
-          <br />
-          <span className="text-saffron">that doesn&rsquo;t lie.</span>
-        </h1>
-        <p
-          className="deva mt-5 text-[clamp(2.4rem,5vw,3.4rem)] leading-[1] text-saffron"
-          lang="sa"
-        >
-          त्वष्टृ
+        <div className="flex items-start gap-5">
+          <p
+            className="deva mt-1 text-[clamp(3.2rem,7vw,5.2rem)] leading-[0.85] text-saffron"
+            lang="sa"
+            aria-hidden
+          >
+            त्वष्त्र
+          </p>
+          <h1 className="display max-w-xl">
+            Conversational
+            <br />
+            <span className="text-saffron">mechatronics CAD.</span>
+          </h1>
+        </div>
+        <p className="lead mt-7 max-w-md text-[clamp(1.3rem,2.4vw,1.7rem)]">
+          Describe it. Tvashtra builds the part, simulates it, wires the
+          electronics, and explores the alternatives — from one conversation.
         </p>
-        <p className="lead mt-4 max-w-md text-[clamp(1.25rem,2.4vw,1.65rem)]">
-          The model builds the part. Sees the part. Fixes its own mistakes
-          before it dares to call it done.
-        </p>
-        <p className="mt-7 max-w-xl text-base leading-relaxed text-muted">
+        <p className="mt-8 max-w-xl text-base leading-relaxed text-muted">
           Desktop CAD on a real B-rep kernel (OCCT), not a toy mesh. You type
-          intent. It runs solid-modeling ops. Four canonical views auto-render
-          after every batch so the model checks its own work and retries when
-          wrong. STL, STEP, OBJ go out the back. Your API key, your machine.
+          intent; it runs solid-modeling ops, FEM stress and modal solves, the
+          KiCad-to-enclosure bridge, and design-space sweeps. Four canonical
+          views auto-render after every batch so the model checks its own work
+          and retries when wrong. STL, STEP, OBJ out the back. Your API key,
+          your machine.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
           <Link

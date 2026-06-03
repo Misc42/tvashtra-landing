@@ -24,7 +24,7 @@ export default function Nav() {
       >
         <span className="font-semibold tracking-[0.12em]">Tvashtra</span>
         <span className="deva text-base italic normal-case tracking-normal text-muted transition group-hover:text-saffron">
-          त्वष्टृ
+          त्वष्त्र
         </span>
       </Link>
       <nav className="hidden items-center gap-7 md:flex">

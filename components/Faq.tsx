@@ -28,9 +28,11 @@ const items = [
 export default function Faq() {
   return (
     <section id="faq" className="wrap border-b border-rule py-20">
-      <p className="masthead mb-4">FAQ</p>
+      <p className="section-eyebrow mb-5" data-index="08">
+        FAQ
+      </p>
       <h2 className="section-title max-w-3xl">Honest answers.</h2>
-      <dl className="mt-12 grid gap-x-12 gap-y-10 lg:grid-cols-2">
+      <dl className="mt-14 grid gap-x-12 gap-y-10 lg:grid-cols-2">
         {items.map((item) => (
           <div key={item.q} className="border-t border-rule pt-5">
             <dt className="card-title">{item.q}</dt>

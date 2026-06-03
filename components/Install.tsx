@@ -59,7 +59,9 @@ export default function Install() {
   return (
     <section id="install" className="wrap border-b border-rule py-20">
       <div className="flex flex-wrap items-baseline justify-between gap-4">
-        <p className="masthead mb-4">Install</p>
+        <p className="section-eyebrow mb-4" data-index="06">
+          Install
+        </p>
         <a
           href={`${REPO}/releases/tag/${TAG}`}
           className="label text-[0.68rem] text-saffron underline-offset-2 hover:underline"

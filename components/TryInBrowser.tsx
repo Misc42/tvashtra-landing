@@ -5,7 +5,9 @@ export default function TryInBrowser() {
     <section id="browser" className="wrap border-b border-rule py-20">
       <div className="grid gap-10 lg:grid-cols-[0.85fr_1fr] lg:items-start">
         <div>
-          <p className="masthead mb-4">Try in browser &middot; coming soon</p>
+          <p className="section-eyebrow mb-5" data-index="07">
+            Try in browser &middot; coming soon
+          </p>
           <h2 className="section-title">
             Tvashtra,
             <br />

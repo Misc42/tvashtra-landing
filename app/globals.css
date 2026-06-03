@@ -139,6 +139,29 @@ footer {
   text-transform: uppercase;
 }
 
+/* Numbered section kicker — the editorial spine (sanketra's "01 · LABEL").
+   The serial number is rendered saffron, a hairline em-dash separates it
+   from the muted label, so every section reads as one numbered sequence
+   instead of a grab-bag of one-off words. The number is set in the same
+   mono ladder as .masthead but kept slightly heavier for the serial feel. */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.7em;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.section-eyebrow::before {
+  content: attr(data-index) " ·";
+  color: var(--accent-warm);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2em;
+}
+
 /* Hero / marquee display — the elegant editorial move. Serif, very tight
    leading, optical negative tracking so the large size doesn't gap out. */
 .display {

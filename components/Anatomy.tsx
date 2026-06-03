@@ -17,7 +17,7 @@ const regions: {
     pos: [3, 3],
     align: "right",
     title: "Brand mark",
-    body: "Devanagari त्वष्टृ glyph in copper plus the Tvashtra wordmark. Doubles as a window-drag region.",
+    body: "Devanagari त्वष्त्र glyph in copper plus the Tvashtra wordmark. Doubles as a window-drag region.",
   },
   {
     num: 2,
@@ -94,7 +94,9 @@ const regions: {
 export default function Anatomy() {
   return (
     <section id="anatomy" className="wrap border-b border-rule py-20">
-      <p className="masthead mb-4">Anatomy</p>
+      <p className="section-eyebrow mb-5" data-index="03">
+        Anatomy
+      </p>
       <h2 className="section-title max-w-3xl">
         Eleven regions, each doing one thing well.
       </h2>

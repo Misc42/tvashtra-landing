@@ -13,7 +13,9 @@ export default function WatchItBuild() {
     >
       <div className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <div>
-          <p className="masthead mb-4">Watch it build</p>
+          <p className="section-eyebrow mb-5" data-index="04">
+            Watch it build
+          </p>
           <h2 className="section-title">
             Three ops.{" "}
             <span className="text-saffron">One bracket.</span>

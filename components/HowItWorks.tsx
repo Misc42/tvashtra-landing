@@ -26,7 +26,9 @@ export default function HowItWorks() {
     <section id="how" className="wrap border-b border-rule py-20">
       <div className="grid gap-10 lg:grid-cols-[0.7fr_1fr]">
         <div>
-          <p className="masthead mb-4">How it works</p>
+          <p className="section-eyebrow mb-5" data-index="02">
+            How it works
+          </p>
           <h2 className="section-title">Four loops, not four hundred menus.</h2>
           <p className="lead mt-6 text-xl">
             Talk &rarr; build &rarr; see &rarr; keep. The closed loop is the

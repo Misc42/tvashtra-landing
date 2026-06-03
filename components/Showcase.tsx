@@ -1,49 +1,174 @@
 import Image from "next/image";
 import { asset } from "@/lib/asset";
+import PartViewer from "./PartViewer";
 
-// Side-by-side prompt → render gallery showing what Tvashtra can build
-// end-to-end. Each card carries the literal prompt text the user types,
-// the rendered output, and the tool-call trail the model dispatches into
-// the kernel. The v0.7 marquee work — the live interactive viewport with
-// in-canvas von-Mises stress — sits at the top; the earlier drawings /
-// materials / mate / tolerance / proof-point cards follow as continued
-// evidence, nothing about them regressed.
+// PartViewer is a Client Component ('use client') that pulls in
+// @google/model-viewer (a browser-only web component) and WebGL. It is
+// SSR-safe on its own: the model-viewer import runs in a browser-only
+// `useEffect`, and until that resolves the component renders the same still
+// the other cards show. So it can be imported directly here — the static
+// export prerenders the poster <img>, and the 3D registers on the client.
+// (next/dynamic's `ssr: false` is disallowed inside a Server Component, which
+// this section is, so the guard lives in PartViewer rather than at the import.)
+
+// Side-by-side prompt → render gallery showing the breadth of what
+// Tvashtra builds end-to-end. Each card carries the literal prompt text the
+// user types, the rendered output, and the cad-* tool-call trail the model
+// dispatches into the kernel. The differentiators lead — semantic bulk
+// edits, live FEM, modal analysis, exploded assemblies, the ECAD↔MCAD
+// bridge, and the design-space sweep. The mechanical proof-points follow as
+// continued evidence that the core modeling never regressed.
 type Showcase = {
   id: string;
-  /** `id` doubles as the section anchor (e.g. `#showcase-drawings`) so
-   * the WhatsNew strip above the fold can jump to a card directly. */
+  /** `id` doubles as the section anchor (e.g. `#showcase-stress`) so the
+   * WhatsNew strip above the fold can jump to a card directly. */
   src: string;
+  /** When set, the card renders an autoplay-muted-loop clip instead of a
+   * still — used for the orbiting FEM, the vibrating mode shape, and the
+   * exploding assembly, where the motion is the proof. */
+  video?: boolean;
+  /** Poster frame for the clip — shown before the video decodes. */
+  poster?: string;
+  /** When set, the card is an orbitable 3D part instead of a still. The GLB
+   * loads only after the visitor clicks the card (see PartViewer); until then
+   * the same `src` still is shown as the poster. Each geometry card gets its
+   * own `exposure` / `shadow` so no two parts read with the same finish —
+   * they sit distinct alongside the multi-colour FEM cards. SIM cards (the
+   * FEM clips) never carry a `model` — they stay <video>. */
+  model?: { src: string; exposure: number; shadow: number };
   prompt: string;
   ops: string[];
   feature: string;
   title: string;
   body: string;
-  /** Optional badge above the title — used to flag the newest marquee
-   * card so visitors can tell the latest work apart from the older
-   * proof-points beneath. */
+  /** Optional badge above the title — used to flag the differentiator
+   * cards so visitors can tell the headline capabilities apart from the
+   * supporting proof-points beneath. */
   badge?: string;
 };
 
 const showcases: Showcase[] = [
-  // --- v0.7 marquee work (live interactive viewport) ---
+  // --- the differentiators (lead the section) ---
+  {
+    id: "showcase-semantic-edit",
+    src: "/screenshots/showcase/semantic-edit.png",
+    model: { src: "/models/semantic-edit.glb", exposure: 1.05, shadow: 0.55 },
+    badge: "Differentiator",
+    prompt: "Change every M5 hole on this bracket to M6.",
+    ops: [
+      "cad_find_face(query=\"cylindrical, ⌀5.5\")  — locate every M5 clearance bore",
+      "cad_edit_bulk(match=@found, op=resize_hole, diameter=6.6)",
+      "cad_render(views=[iso])  — model re-reads the edited part",
+    ],
+    feature: "Semantic bulk edit · one sentence rewrites the part",
+    title: "One sentence edits the whole part.",
+    body:
+      "Not find-and-replace on text — a B-rep edit. The model resolves \"every M5 hole\" to the actual cylindrical faces in the solid, re-bores each to M6 clearance, and re-reads the result before it answers. Change the intent, the geometry follows. No feature tree to hunt through, no holes missed.",
+  },
   {
     id: "showcase-stress",
-    src: "/screenshots/showcase/live-stress-overlay.png",
-    badge: "New · v0.7",
+    src: "/screenshots/showcase/stress-orbit.mp4",
+    video: true,
+    poster: "/screenshots/showcase/stress-orbit-poster.jpg",
+    badge: "Differentiator",
     prompt:
-      "Clamp the bottom face of the pillar, push -100 N straight down on the top, steel. Show me where it yields — and keep it live as I tweak the geometry.",
+      "Clamp the bottom face, push -100 N straight down on the top, steel. Show me where it yields.",
     ops: [
-      "cad_select(name=\"base\", face_ids=[0])  — clamp face, from viewport click",
+      "cad_select(name=\"base\", face_ids=[0])  — clamp face",
       "cad_select(name=\"top\",  face_ids=[5])  — load face",
       "cad_stress(clamp=@base, load=@top, force=(0, 0, -100), material=steel_1018)",
-      "cad_stress(auto_solve=true)  — re-runs on every geometry edit",
     ],
-    feature: "Live von-Mises stress · in-viewport heatmap · turbo + MPa legend",
-    title: "Stress, live in the viewport.",
+    feature: "Live von-Mises FEM · in-viewport heatmap · MPa legend",
+    title: "Stress, solved in the conversation.",
     body:
-      "von-Mises heatmap drawn straight onto the deformed part in the live 3D canvas — turbo colormap, peak σ called out (184 MPa here), MPa legend bottom-right. Auto-solve re-runs the FEM as the geometry changes, so the colours track your edits in place. No still image to wait on, no export round-trip to a separate analysis tool.",
+      "A real finite-element solve, not a colour gradient. The von-Mises field is drawn straight onto the part — turbo colormap, peak σ called out (162 MPa here), MPa legend bottom-right. No export round-trip to a separate analysis tool: ask for the load case, read the heatmap, iterate.",
   },
-  // --- earlier marquee work (drawings, materials, mate, tolerances) ---
+  {
+    id: "showcase-modal",
+    src: "/screenshots/showcase/modal.mp4",
+    video: true,
+    poster: "/screenshots/showcase/modal-poster.jpg",
+    badge: "Differentiator",
+    prompt:
+      "What's the first natural frequency of this plate, and animate the mode shape.",
+    ops: [
+      "cad_modal(material=aluminum_6061, modes=1)",
+      "cad_modal(animate=true)  — sweep the deformation",
+    ],
+    feature: "Modal analysis · natural frequency · animated mode shape",
+    title: "Find the resonance before it finds you.",
+    body:
+      "The eigenmode solve returns the natural frequencies and the deformation shape for each. The clip sweeps the first mode so you see exactly how the plate flexes when it rings. The vibration question every mechatronic part has to answer — answered in the same chat that built it.",
+  },
+  {
+    id: "showcase-explode",
+    src: "/screenshots/showcase/explode.mp4",
+    video: true,
+    poster: "/screenshots/showcase/explode-poster.jpg",
+    badge: "Differentiator",
+    prompt:
+      "Mate these four parts into the housing, then give me an exploded view I can show the assembler.",
+    ops: [
+      "cad_mate(kind=concentric, source=lid, target=housing)",
+      "cad_mate(kind=coincident, source=board, target=housing/floor)",
+      "cad_explode(factor=1.0, axis=auto)  — fan the stack along the assembly axis",
+    ],
+    feature: "Assembly mates · exploded view · per-part materials",
+    title: "Assemblies that come apart on command.",
+    body:
+      "Four distinct parts, four distinct materials, mated into one housing — then fanned out along the assembly axis so every interface is legible. The ghosted wireframe holds the assembled position. The same document drives both the build and the shop-floor exploded view.",
+  },
+  {
+    id: "showcase-pcb",
+    src: "/screenshots/showcase/pcb-enclosure.png",
+    model: { src: "/models/pcb.glb", exposure: 1.0, shadow: 0.7 },
+    badge: "Differentiator",
+    prompt:
+      "Take this KiCad board, give it a 1.6 mm solid with four M3 mounting holes, and fit it for an enclosure.",
+    ops: [
+      "cad_pcb_outline(width=80, height=60, path=\"board.kicad_pcb\")",
+      "cad_board_solid(path=\"board.kicad_pcb\", thickness=1.6, holes=4×⌀3.2)",
+      "cad_set_material(plastic_matte)",
+    ],
+    feature: "ECAD ↔ MCAD bridge · KiCad outline → OCCT solid",
+    title: "The board becomes mechanical.",
+    body:
+      "Tvashtra reads the KiCad Edge.Cuts outline and lifts it into a real OCCT solid — board thickness, mounting holes drilled board-through for the standoffs. From there it mates into an enclosure cavity like any other part. Electronics and mechanics, one model, one conversation.",
+  },
+  {
+    id: "showcase-pareto",
+    src: "/screenshots/showcase/pareto.png",
+    model: { src: "/models/pareto.glb", exposure: 1.25, shadow: 0.45 },
+    badge: "Differentiator",
+    prompt:
+      "Give me three variants of this bracket and rank them by mass against manufacturability.",
+    ops: [
+      "cad_pareto(param=wall_thickness, range=[3, 8], samples=3)",
+      "cad_pareto(objectives=[mass, machinability])",
+      "cad_render(views=[iso])  — lay the front rank side by side",
+    ],
+    feature: "Design-space sweep · Pareto front · ranked variants",
+    title: "It explores the alternatives for you.",
+    body:
+      "Describe the trade-off and the model sweeps the parameter, computes mass and a manufacturability score for each variant, and lays the non-dominated set out for you to pick from. The part that no single prompt would have found — surfaced from one.",
+  },
+  // --- mechanical proof-points (still live, still correct) ---
+  {
+    id: "motor-mount-bracket",
+    src: "/screenshots/showcase/motor-mount-bracket.png",
+    model: { src: "/models/motor-mount.glb", exposure: 1.1, shadow: 0.6 },
+    prompt:
+      "Make a 100×80×8 mm aluminium plate. Cut a 40 mm bore through the centre for a NEMA 17 motor. Add four M5 clearance holes — one at each corner, 70 mm × 56 mm centres.",
+    ops: [
+      "cad_box(100 × 80 × 8)",
+      "cad_hole(⌀40 through, centre)",
+      "cad_hole(⌀5.5 through) × 4 — corners",
+    ],
+    feature: "Motor mount · centre bore · 4-corner pattern",
+    title: "A real engineering bracket.",
+    body:
+      "Six op calls. One parametric history. The bore and corner clearances are real boolean cuts against the plate — not screen-space tricks, not a textured mesh.",
+  },
   {
     id: "showcase-drawings",
     src: "/screenshots/showcase/drawings-a4-bracket.png",
@@ -62,23 +187,6 @@ const showcases: Showcase[] = [
       "Visible edges drawn solid. Occluded edges drawn dashed — the projector classifies them automatically via depth-buffer occlusion. SVG / PDF / DXF out the back. The same drawing the machine shop expects, generated from the same prompt that built the part.",
   },
   {
-    id: "showcase-materials",
-    src: "/screenshots/showcase/materials-pbr-presets.png",
-    prompt:
-      "Make a 60×40×8 mm bracket in brushed aluminium. Then duplicate it three times: polished steel, brass, and anodized red.",
-    ops: [
-      "cad_box(60 × 40 × 8) × 4",
-      "cad_set_material(brushed_aluminum)",
-      "cad_set_material(polished_steel)",
-      "cad_set_material(brass)",
-      "cad_set_material(anodized_red)",
-    ],
-    feature: "PBR material presets · 7 stocks, one tool call each",
-    title: "Real materials, not vertex tints.",
-    body:
-      "Seven physically-grounded presets — brushed aluminium, polished steel, brass, anodized red, plastic matte, glass, studio clay — resolve to PBR base colour, metallic, and roughness at MaterialUbo bind time. No texture maps to ship, no shader edits. Tag a shape, the renderer handles the rest.",
-  },
-  {
     id: "showcase-mate",
     src: "/screenshots/showcase/mate-flange-pair.png",
     prompt:
@@ -93,116 +201,26 @@ const showcases: Showcase[] = [
     body:
       "Unlike a one-shot align, a mate is stored on the document. Concentric, coincident, parallel, perpendicular, distance, angle. Move a participating part later and the solver re-runs — the moved shape stays bound. Single-constraint resolution today; chained DOF analysis lands in v0.5.",
   },
-  {
-    id: "showcase-tolerance",
-    src: "/screenshots/showcase/tolerance-selection-fit.png",
-    prompt:
-      "Click the bore face. Now apply an H7 hole-basis fit. Then chamfer the four top edges I just selected — 0.5 mm.",
-    ops: [
-      "cad_select(name=\"bore\", face_ids=[6])  — from viewport click",
-      "cad_tolerance(entity_ref=@selected, kind=fit_h7)",
-      "cad_select(name=\"top_edges\", edge_ids=[12, 13, 14, 15])",
-      "cad_chamfer(edge_refs=@group:top_edges, distance=0.5)",
-    ],
-    feature: "Click-to-select · GD&T bands · named groups across turns",
-    title: "Pick a face. Type intent. The model already knows the ID.",
-    body:
-      "Click the viewport, the SelectionChip lights up above the chat. \"@selected.faces[0]\" resolves to the face you picked. Register a named group, address it across turns. Tolerances ride alongside the geometry — linear, angular, ISO 286 H7/G6/N6 fit bands — persisted in the .tvr, surfaced in the Inspector.",
-  },
-  // --- v0.3.0 proof-points (still live, still correct) ---
-  {
-    id: "motor-mount-bracket",
-    src: "/screenshots/showcase/motor-mount-bracket.png",
-    prompt:
-      "Make a 100×80×8 mm aluminium plate. Cut a 40 mm bore through the centre for a NEMA 17 motor. Add four M5 clearance holes — one at each corner, 70 mm × 56 mm centres.",
-    ops: [
-      "box(100 × 80 × 8)",
-      "hole(⌀40 through, centre)",
-      "hole(⌀5.5 through) × 4 — corners",
-    ],
-    feature: "Motor mount · centre bore · 4-corner pattern",
-    title: "A real engineering bracket.",
-    body:
-      "Six op calls. One parametric history. The bore and corner clearances are real boolean cuts against the plate — not screen-space tricks, not a textured mesh.",
-  },
-  {
-    id: "bolt-pattern-plate",
-    src: "/screenshots/showcase/bolt-pattern-plate.png",
-    prompt:
-      "Make a 150×100×10 mm aluminium plate. Drill six M6 clearance holes in a 3×2 grid with 40 mm spacing, then add a 4 mm fillet on the corner edges.",
-    ops: [
-      "box(150 × 100 × 10)",
-      "hole(⌀6.4 through) × 6 — 3×2 grid",
-      "fillet(r = 4) — corner edges",
-    ],
-    feature: "3×2 bolt-hole grid · corner fillet",
-    title: "Mounting plates, one prompt.",
-    body:
-      "The whole reason you reach for a CAD tool: a panel with a real hole pattern that lines up against another part. Drill grid, fillet the corners, hand it to the machinist.",
-  },
-  {
-    id: "circular-flange",
-    src: "/screenshots/showcase/circular-flange.png",
-    prompt:
-      "Make a 100 mm diameter, 15 mm thick flange. Cut a 30 mm centre bore. Add 6 M6 clearance holes equally spaced around the 38 mm radius bolt circle.",
-    ops: [
-      "cylinder(r = 50, h = 15)",
-      "hole(⌀30 through, centre)",
-      "hole(⌀6.4 through) × 6 — circular pattern at r = 38",
-    ],
-    feature: "Cylindrical flange · 6-bolt circular pattern",
-    title: "Bolt circles, computed not clicked.",
-    body:
-      "Pump flanges, mating plates, structural couplings. The model places six holes equally around the bolt circle in a single batch — none of them clicked, none of them dragged from a sketch.",
-  },
-  {
-    id: "fastener-stack",
-    src: "/screenshots/showcase/fastener-stack.png",
-    prompt:
-      "Insert an M5×20 socket head cap screw, an M5 washer, and an M5 hex nut along the +Z axis as an exploded view.",
-    ops: [
-      "insert_part(ISO 4762 M5×20 SHCS)",
-      "insert_part(ISO 7089 M5 washer)",
-      "insert_part(ISO 4032 M5 hex nut)",
-    ],
-    feature: "Standard parts catalog · ISO-spec fasteners",
-    title: "Off-the-shelf parts, one call each.",
-    body:
-      "32 ISO-spec fastener rows (SHCS, hex nut, hex bolt, washer — M2 through M12) parameterised end-to-end. You don't model the bolt. You ask for it.",
-  },
-  {
-    id: "cube-bore-fillet",
-    src: "/screenshots/showcase/cube-fillet-bore.png",
-    prompt:
-      "Make a 60 mm cube with a 20 mm cylindrical bore through it and a 3 mm fillet on all top edges.",
-    ops: [
-      "box(60 × 60 × 60)",
-      "hole(⌀20 through)",
-      "fillet(r = 3) — 4 top edges",
-    ],
-    feature: "Boolean cut · multi-edge fillet",
-    title: "Boolean, then fillet, in one breath.",
-    body:
-      "The model identifies which four edges are the top of the cube post-bore (using cad_find_face on the +Z normal), then fillets exactly those — no manual edge picking, no clicking around in a viewport.",
-  },
 ];
 
 export default function Showcase() {
   return (
-    <section id="showcase" className="wrap border-b border-rule py-20">
-      <p className="masthead mb-4">Features in action</p>
+    <section id="showcase" className="wrap border-b border-rule py-24">
+      <p className="section-eyebrow mb-5" data-index="05">
+        Features in action
+      </p>
       <h2 className="section-title max-w-3xl">
-        Ten parts.{" "}
-        <span className="text-saffron">Ten prompts.</span>
+        Describe it.{" "}
+        <span className="text-saffron">It builds, simulates, wires.</span>
         <br />
-        <span className="text-muted">Zero clicks.</span>
+        <span className="text-muted">One conversation.</span>
       </h2>
-      <p className="mt-5 max-w-2xl text-muted">
-        Each card is the literal text the user typed, the exact tool calls the
-        model dispatched into the OCCT kernel, and the rendered output the
-        viewport sent back — the same image the model saw before it answered
-        &ldquo;done.&rdquo; The live interactive viewport leads; the earlier
-        waves follow as proof-points.
+      <p className="lead mt-6 max-w-2xl text-[clamp(1.15rem,2vw,1.4rem)]">
+        Each card is the literal text the user typed, the exact cad-* tool
+        calls the model dispatched into the OCCT kernel, and the rendered
+        output the viewport sent back — the same image the model saw before
+        it answered &ldquo;done.&rdquo; The differentiators lead; the
+        mechanical proof-points follow as evidence.
       </p>
 
       <div className="mt-14 grid gap-10 lg:grid-cols-2">
@@ -213,13 +231,35 @@ export default function Showcase() {
             className="card scroll-mt-24 overflow-hidden"
           >
             <div className="relative aspect-[4/3] w-full bg-paper">
-              <Image
-                src={asset(s.src)}
-                alt={s.title}
-                fill
-                sizes="(min-width: 1024px) 540px, 100vw"
-                className="object-contain"
-              />
+              {s.model ? (
+                <PartViewer
+                  src={asset(s.model.src)}
+                  poster={asset(s.src)}
+                  alt={s.title}
+                  exposure={s.model.exposure}
+                  shadowIntensity={s.model.shadow}
+                />
+              ) : s.video ? (
+                <video
+                  src={asset(s.src)}
+                  poster={s.poster ? asset(s.poster) : undefined}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 h-full w-full object-cover"
+                  aria-label={s.title}
+                />
+              ) : (
+                <Image
+                  src={asset(s.src)}
+                  alt={s.title}
+                  fill
+                  sizes="(min-width: 1024px) 540px, 100vw"
+                  className="object-contain"
+                />
+              )}
               {s.badge && (
                 <span className="label absolute right-3 top-3 rounded-sm border border-saffron/60 bg-paper/90 px-2 py-0.5 text-[0.6rem] text-saffron backdrop-blur-sm">
                   {s.badge}
