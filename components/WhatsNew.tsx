@@ -3,7 +3,10 @@
 // the FAQ. Four pills, each anchored at a Showcase card below; clicking
 // jumps the page to that card so the bullet "live stress" turns into a
 // real rendered example in one scroll. No animation, no dismiss state —
-// this is release context, not a notification.
+// this is release context, not a notification. Below the v0.7 row sit the
+// v0.9 shipped bullets and a v1.0 "in the wave" row — capabilities authored
+// in the kernel but not yet in the tagged download (still v0.9.0), kept
+// visually distinct so we never imply they are downloadable today.
 import Link from "next/link";
 
 const pills = [
@@ -48,6 +51,37 @@ const shipped09 = [
   {
     label: "Editable parametrics",
     detail: "“Change all M5 holes to M6” — the model rebuilds",
+  },
+];
+
+// v1.0 wave — authored and exercised in the kernel, not yet in the tagged
+// download (current install remains v0.9.0). These are capabilities, not a
+// release claim: each pill anchors at the Showcase card that demonstrates it.
+const wave10 = [
+  {
+    label: "Nonlinear-plastic FEM",
+    href: "#showcase-nonlinear",
+    detail: "*STATIC, NLGEOM — does it yield and stay bent (PEEQ)",
+  },
+  {
+    label: "Transient dynamic FEM",
+    href: "#showcase-dynamic",
+    detail: "*MODAL DYNAMIC — time-domain ring-down to a load",
+  },
+  {
+    label: "Electronic simulation",
+    href: "#showcase-circuit-sim",
+    detail: "ngspice SPICE — op / DC sweep / AC Bode / transient",
+  },
+  {
+    label: "Design exploration",
+    href: "#showcase-explore-designs",
+    detail: "Distinct topologies, built and NSGA-II ranked",
+  },
+  {
+    label: "Presentation export",
+    href: "#showcase-video-export",
+    detail: "Turntable / exploded → MP4 (H.264) + GIF",
   },
 ];
 
@@ -101,6 +135,33 @@ export default function WhatsNew() {
               <span className="text-[0.72rem] leading-tight text-faint">
                 {b.detail}
               </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-8 flex flex-col gap-3 border-t border-rule pt-6 lg:flex-row lg:items-start lg:gap-8">
+        <div className="flex-shrink-0">
+          <p className="masthead text-saffron">v1.0 &middot; in the wave</p>
+          <p className="mt-1 text-[0.68rem] leading-tight text-faint lg:max-w-[12rem]">
+            Authored in the kernel — landing in the next cut. Jump to a card to
+            see each run.
+          </p>
+        </div>
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:flex lg:flex-wrap lg:gap-3">
+          {wave10.map((p) => (
+            <li key={p.href}>
+              <Link
+                href={p.href}
+                className="group flex flex-col items-start gap-0.5 rounded-sm border border-rule bg-paper/40 px-3.5 py-2.5 transition hover:border-saffron hover:bg-saffron/[0.06] focus-visible:border-saffron focus-visible:outline-none lg:max-w-[13rem]"
+              >
+                <span className="label text-[0.62rem] text-saffron">
+                  {p.label}
+                </span>
+                <span className="text-[0.72rem] leading-tight text-muted transition group-hover:text-ink">
+                  {p.detail}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

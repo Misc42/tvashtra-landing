@@ -37,11 +37,12 @@ export default function Hero() {
         </p>
         <p className="mt-8 max-w-xl text-base leading-relaxed text-muted">
           Desktop CAD on a real B-rep kernel (OCCT), not a toy mesh. You type
-          intent; it runs solid-modeling ops, FEM stress and modal solves, the
-          KiCad-to-enclosure bridge, and design-space sweeps. Four canonical
-          views auto-render after every batch so the model checks its own work
-          and retries when wrong. STL, STEP, OBJ out the back. Your API key,
-          your machine.
+          intent; it runs solid-modeling ops, the FEM suite (stress, modal,
+          thermal, nonlinear-plastic, transient dynamic), the KiCad-to-enclosure
+          bridge with ngspice circuit simulation, and explores distinct designs.
+          Four canonical views auto-render after every batch so the model checks
+          its own work and retries when wrong. STL, STEP, OBJ — and turntable
+          MP4 — out the back. Your API key, your machine.
         </p>
         <div className="mt-9 flex flex-wrap items-center gap-4">
           <Link

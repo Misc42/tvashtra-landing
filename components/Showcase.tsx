@@ -15,9 +15,11 @@ import PartViewer from "./PartViewer";
 // Tvashtra builds end-to-end. Each card carries the literal prompt text the
 // user types, the rendered output, and the cad-* tool-call trail the model
 // dispatches into the kernel. The differentiators lead — semantic bulk
-// edits, live FEM, modal analysis, exploded assemblies, the ECAD↔MCAD
-// bridge, and the design-space sweep. The mechanical proof-points follow as
-// continued evidence that the core modeling never regressed.
+// edits, the FEM suite (live stress, modal, thermal, nonlinear-plastic,
+// transient dynamic), exploded assemblies, the ECAD↔MCAD bridge plus circuit
+// SPICE, model-driven design exploration, and the parametric design-space
+// sweep. The mechanical proof-points follow as continued evidence that the
+// core modeling never regressed; presentation video export sits among them.
 type Showcase = {
   id: string;
   /** `id` doubles as the section anchor (e.g. `#showcase-stress`) so the
@@ -119,6 +121,40 @@ const showcases: Showcase[] = [
       "A real steady-state heat-transfer solve — the same FEM engine behind the stress and modal cards. Power dissipated at the components conducts through the board and sheds off the cooler edges; the temperature field is drawn straight onto the part — hottest at the power components (red), coolest at the rim (blue). The thermal question answered in the conversation that laid out the board, not on the bench with a thermal camera.",
   },
   {
+    id: "showcase-nonlinear",
+    src: "/screenshots/showcase/nonlinear.png",
+    badge: "Differentiator",
+    prompt:
+      "Push this bracket past its limit — 4 kN on the arm, steel. Does it spring back or take a permanent bend?",
+    ops: [
+      "cad_select(name=\"root\", face_ids=[0])  — fixed end",
+      "cad_select(name=\"tip\",  face_ids=[7])  — load face",
+      "cad_nonlinear(clamp=@root, load=@tip, force=4000, material=steel_1018, increments=12)",
+    ],
+    feature: "Nonlinear plastic FEM · *STATIC, NLGEOM · PEEQ field",
+    title: "Past the elastic limit, honestly.",
+    body:
+      "Linear stress gives you the peak number; it can’t tell you whether the part comes back. This is a large-deformation elastic-plastic solve — the load is ramped over a multi-increment history, the material yields where it should, and the equivalent plastic strain (PEEQ) is painted where metal has taken a permanent set. You read the necking, not a colour past a redline that may or may not mean failure.",
+  },
+  {
+    id: "showcase-dynamic",
+    src: "/screenshots/showcase/dynamic.mp4",
+    video: true,
+    poster: "/screenshots/showcase/dynamic-poster.jpg",
+    badge: "Differentiator",
+    prompt:
+      "It gets a 50 N tap for 5 ms, then nothing. Show me how it rings down over the next half second.",
+    ops: [
+      "cad_modal(material=aluminum_6061, modes=6)  — eigenmodes first",
+      "cad_dynamic(load=@tip, profile=impulse(50, 5ms), duration=0.5s)",
+      "cad_render(field=displacement, animate=true)  — sweep the time response",
+    ],
+    feature: "Transient dynamic FEM · *MODAL DYNAMIC · time-domain ring-down",
+    title: "How it rings when you hit it.",
+    body:
+      "Modal tells you the frequencies; this tells you the actual motion in time. A *MODAL DYNAMIC solve projects a time-varying load onto the eigenmodes and integrates the response, so you watch the part oscillate and decay after the impulse — not a static mode shape, the real ring-down. The clip plays the displacement field across the half-second window.",
+  },
+  {
     id: "showcase-explode",
     src: "/screenshots/showcase/explode.mp4",
     video: true,
@@ -152,6 +188,38 @@ const showcases: Showcase[] = [
     title: "The board becomes mechanical.",
     body:
       "Tvashtra reads the KiCad Edge.Cuts outline and lifts it into a real OCCT solid — board thickness, mounting holes drilled board-through for the standoffs. From there it mates into an enclosure cavity like any other part. Electronics and mechanics, one model, one conversation.",
+  },
+  {
+    id: "showcase-circuit-sim",
+    src: "/screenshots/showcase/circuit-sim.png",
+    badge: "Differentiator",
+    prompt:
+      "Take the board’s netlist and simulate it — DC operating point, then sweep the input and give me the Bode plot.",
+    ops: [
+      "cad_circuit_sim(netlist=\"board.kicad_pcb\", analysis=op)  — DC operating point",
+      "cad_circuit_sim(analysis=dc_sweep, source=Vin, range=[0, 5])",
+      "cad_circuit_sim(analysis=ac, decade=10, start=1, stop=1e6)  — Bode",
+    ],
+    feature: "Electronic simulation · ngspice SPICE · op / DC / AC / transient",
+    title: "And now the board simulates.",
+    body:
+      "The same board you lifted into a solid carries a netlist — Tvashtra hands it to ngspice and runs a real SPICE deck. DC operating point, DC sweep, AC frequency response (the Bode plot), and transient waveforms come back as actual curves, not estimates. The board becomes mechanical, then it tells you whether the circuit behaves before you order it.",
+  },
+  {
+    id: "showcase-explore-designs",
+    src: "/screenshots/showcase/explore-designs.png",
+    badge: "Differentiator",
+    prompt:
+      "Same load-bearing brief — give me genuinely different structures, not the same plate at three thicknesses. Build them and rank them.",
+    ops: [
+      "cad_explore_designs(brief=@brief, drafts=3)  — rib-stiffened plate · box-section · truss",
+      "cad_explore_designs(measure=[mass, stiffness, machinability])",
+      "cad_explore_designs(rank=nsga2)  — sort the drafts onto the Pareto front",
+    ],
+    feature: "Model-driven design exploration · distinct topologies · NSGA-II ranked",
+    title: "Different structures, not the same part resized.",
+    body:
+      "The parametric sweep walks one dimension of a fixed shape. This is the other axis: the model authors several topologically-distinct drafts for one brief — a rib-stiffened plate, a box-section, a truss — builds each, measures it, and ranks them on the NSGA-II front. Diverse candidates, scored and laid out side by side. It widens the search; it doesn’t claim to have found the global optimum.",
   },
   {
     id: "showcase-pareto",
@@ -203,6 +271,23 @@ const showcases: Showcase[] = [
     title: "From 3D model to shop drawing.",
     body:
       "Visible edges drawn solid. Occluded edges drawn dashed — the projector classifies them automatically via depth-buffer occlusion. SVG / PDF / DXF out the back. The same drawing the machine shop expects, generated from the same prompt that built the part.",
+  },
+  {
+    id: "showcase-video-export",
+    src: "/screenshots/showcase/explode.mp4",
+    video: true,
+    poster: "/screenshots/showcase/explode-poster.jpg",
+    prompt:
+      "Spin the assembly on a turntable and fan it apart — export both as MP4 and a GIF I can drop in a deck.",
+    ops: [
+      "cad_render(motion=turntable, frames=120)",
+      "cad_render(motion=explode, factor=1.0)",
+      "cad_export(video=[mp4_h264, gif])  — shareable clips, straight from the CLI",
+    ],
+    feature: "Presentation export · turntable / exploded · MP4 (H.264) + GIF",
+    title: "A clip for the deck, from the prompt.",
+    body:
+      "Any view the renderer can hold, it can record. Turntable orbit or exploded fan, written out as H.264 MP4 and GIF straight from the CLI — the same clip you would otherwise screen-capture by hand. The model that built the part also ships the thing you put in the review.",
   },
   {
     id: "showcase-mate",

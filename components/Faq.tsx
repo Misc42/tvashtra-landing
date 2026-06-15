@@ -17,7 +17,15 @@ const items = [
   },
   {
     q: "What ops are supported today?",
-    a: "Primitives (box, cylinder, sphere, cone, torus), booleans (union, cut, intersect), sketch + extrude + revolve, fillet, chamfer, shell, pattern (linear + circular), transforms (translate, rotate, scale, mirror). Loft + sweep land in Phase 2.",
+    a: "Primitives (box, cylinder, sphere, cone, torus), booleans (union, cut, intersect), sketch + extrude + revolve, fillet, chamfer, shell, pattern (linear + circular), transforms (translate, rotate, scale, mirror). Loft + sweep land in Phase 2. The full catalog is 73 cad-* tools — modeling, the FEM suite, the ECAD bridge, drawings, and export — though not all of them are in the tagged download yet (see below).",
+  },
+  {
+    q: "What analyses can it run?",
+    a: "A shared FEM engine drives several: linear von-Mises stress, modal (natural frequency + mode shape), steady-state thermal, nonlinear-plastic (large-deformation yield, PEEQ), and transient dynamic (time-domain ring-down via *MODAL DYNAMIC). For electronics, the board's netlist goes to ngspice for a real SPICE solve — operating point, DC sweep, AC (Bode), and transient. The newest of these are authored in the kernel and arrive in the v1.0 cut; the current download (v0.9.0) ships stress, modal, and buckling.",
+  },
+  {
+    q: "Is the design exploration the same as the Pareto sweep?",
+    a: "No — they're different axes of search. The parametric sweep walks one dimension of a fixed shape (e.g. wall thickness 3→8 mm) and ranks the samples. Design exploration authors several topologically-distinct drafts for one brief — a rib-stiffened plate vs a box-section vs a truss — builds each, measures it, and ranks them on the NSGA-II front. It widens the candidate set; it does not claim to find the global optimum.",
   },
   {
     q: "Open source?",

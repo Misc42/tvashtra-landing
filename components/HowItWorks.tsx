@@ -7,7 +7,7 @@ const steps = [
   {
     eyebrow: "02 · Build",
     title: "Real B-rep, not a toy.",
-    body: "OCCT under the hood. Primitives, booleans, sketch + extrude + revolve, fillet, chamfer, shell, pattern, transforms. STL / STEP / OBJ out the back.",
+    body: "OCCT under the hood. Primitives, booleans, sketch + extrude + revolve, fillet, chamfer, shell, pattern, transforms — then simulate it: stress, modal, thermal, nonlinear-plastic, transient dynamic, and ngspice on the board.",
   },
   {
     eyebrow: "03 · See",
@@ -17,7 +17,7 @@ const steps = [
   {
     eyebrow: "04 · Keep",
     title: "Your part. Your formats.",
-    body: "Local file. Open in Fusion / SolidWorks / Prusa / Blender. The transcript is your parametric history — fork from any prompt to branch the design.",
+    body: "Local file. Open in Fusion / SolidWorks / Prusa / Blender, or export a turntable / exploded clip as MP4 + GIF for the deck. The transcript is your parametric history — fork from any prompt to branch the design.",
   },
 ];
 
