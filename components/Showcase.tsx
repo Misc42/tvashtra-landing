@@ -327,7 +327,9 @@ export default function Showcase() {
       </p>
 
       <div className="mt-14 grid gap-10 lg:grid-cols-2">
-        {showcases.map((s) => (
+        {showcases
+          .filter((s) => s.id !== 'showcase-dynamic')
+          .map((s) => (
           <article
             key={s.id}
             id={s.id}
