@@ -161,16 +161,16 @@ const showcases: Showcase[] = [
     poster: "/screenshots/showcase/explode-poster.jpg",
     badge: "Differentiator",
     prompt:
-      "Mate these four parts into the housing, then give me an exploded view I can show the assembler.",
+      "Build a tie-rod hydraulic cylinder — barrel, front gland, rear cap, piston, rod and four tie-rods — then fan it out as an exploded view for the assembly manual.",
     ops: [
-      "cad_mate(kind=concentric, source=lid, target=housing)",
-      "cad_mate(kind=coincident, source=board, target=housing/floor)",
-      "cad_explode(factor=1.0, axis=auto)  — fan the stack along the assembly axis",
+      "cad_component(...)  — place 7 parts as one assembly tree (11 occurrences)",
+      "cad_set_material(brushed_aluminium · polished_steel · brass)",
+      "cad_export(clip=exploded, axis=auto)  — fan the stack along the bore",
     ],
-    feature: "Assembly mates · exploded view · per-part materials",
+    feature: "Assembly tree · exploded view · per-part PBR materials",
     title: "Assemblies that come apart on command.",
     body:
-      "Four distinct parts, four distinct materials, mated into one housing — then fanned out along the assembly axis so every interface is legible. The ghosted wireframe holds the assembled position. The same document drives both the build and the shop-floor exploded view.",
+      "Seven distinct parts — barrel, glands, piston, rod and four tie-rods — placed as one assembly tree, each carrying its own PBR metal, then fanned out along the bore axis so every interface is legible. The same document drives the build, the BOM and the shop-floor exploded view.",
   },
   {
     id: "showcase-pcb",
