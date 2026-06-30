@@ -274,9 +274,9 @@ const showcases: Showcase[] = [
   },
   {
     id: "showcase-video-export",
-    src: "/screenshots/showcase/explode.mp4",
+    src: "/screenshots/showcase/turntable.mp4",
     video: true,
-    poster: "/screenshots/showcase/explode-poster.jpg",
+    poster: "/screenshots/showcase/turntable-poster.jpg",
     prompt:
       "Spin the assembly on a turntable and fan it apart — export both as MP4 and a GIF I can drop in a deck.",
     ops: [
