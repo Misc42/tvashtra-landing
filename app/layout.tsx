@@ -63,6 +63,9 @@ export const metadata: Metadata = {
       "Desktop CAD where the model builds, sees, and verifies its own work.",
     images: ["/og.png"],
   },
+  alternates: {
+    canonical: "https://tvashtra.app",
+  },
   icons: {
     icon: "/favicon.svg",
   },

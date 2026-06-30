@@ -53,7 +53,7 @@ export default function Hero() {
             <span aria-hidden>&rarr;</span>
           </Link>
           <Link
-            href="#tour"
+            href="#watch-it-build"
             className="label inline-flex items-center gap-2 border-b border-rule pb-2 text-[0.72rem] text-ink transition hover:border-saffron hover:text-saffron"
           >
             See the tour

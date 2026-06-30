@@ -124,11 +124,15 @@ export default function Anatomy() {
               <button
                 type="button"
                 aria-label={`Region ${r.num}: ${r.title}`}
+                aria-expanded={false}
+                aria-controls={`anatomy-tooltip-${r.num}`}
                 className="flex h-6 w-6 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-saffron bg-paper/95 font-mono text-[10px] font-semibold text-saffron shadow-[0_0_0_3px_rgba(0,0,0,0.55)] transition group-hover:scale-110 group-focus-within:scale-110"
               >
                 {r.num}
               </button>
               <div
+                id={`anatomy-tooltip-${r.num}`}
+                role="tooltip"
                 className={`pointer-events-none absolute top-1/2 hidden -translate-y-1/2 whitespace-normal rounded-sm border border-rule bg-paper px-3 py-2 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.6)] group-hover:block group-focus-within:block ${
                   r.align === "right" ? "left-5" : "right-5"
                 }`}

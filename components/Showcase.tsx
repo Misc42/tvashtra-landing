@@ -354,7 +354,10 @@ export default function Showcase() {
                   preload="metadata"
                   className="absolute inset-0 h-full w-full object-cover"
                   aria-label={s.title}
-                />
+                >
+                  {/* Caption track placeholder — no transcript content fabricated */}
+                  <track kind="captions" srcLang="en" label="English captions" default />
+                </video>
               ) : (
                 <Image
                   src={asset(s.src)}

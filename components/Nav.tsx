@@ -6,7 +6,7 @@ import { useState } from "react";
 const links = [
   ["How", "/#how"],
   ["Anatomy", "/#anatomy"],
-  ["Tour", "/#tour"],
+  ["Tour", "/#watch-it-build"],
   ["Install", "/#install"],
   ["Browser", "/#browser"],
   ["FAQ", "/#faq"],
@@ -50,6 +50,8 @@ export default function Nav() {
       </button>
       <div
         id="mobile-nav"
+        aria-hidden={!open}
+        inert={!open || undefined}
         className={`absolute left-[var(--pad)] right-[var(--pad)] top-20 z-20 grid gap-4 rounded-md border border-rule bg-surface p-5 shadow-2xl transition md:hidden ${
           open
             ? "translate-y-0 opacity-100"

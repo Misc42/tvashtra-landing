@@ -31,7 +31,9 @@ export default function WaitlistForm({
       setStatus("success");
       setEmail("");
     } catch (err) {
-      console.error("waitlist submit failed", err);
+      if (process.env.NODE_ENV !== "production") {
+        console.error("waitlist submit failed", err);
+      }
       setStatus("error");
     }
   }

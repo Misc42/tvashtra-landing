@@ -20,7 +20,7 @@
 :root {
   --ink: #F4EFE6;
   --ink-muted: #B8B0A2;
-  --ink-faint: #5C5749;
+  --ink-faint: #857C6E;
   --paper: #0F0E14;
   --surface: #1A1922;
   --surface-2: #232128;
@@ -232,27 +232,9 @@ footer {
   line-height: 1.6;
 }
 
-/* reveal on scroll — minimal, no fancy stagger */
-.reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  transition-delay: var(--reveal-delay, 0ms);
-}
-
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .reveal {
-    opacity: 1;
-    transform: none;
-    transition: none;
   }
 }
 
