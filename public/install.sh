@@ -42,7 +42,7 @@
 set -euo pipefail
 
 # ─── Config ───────────────────────────────────────────────────────────
-VERSION="0.9.0"
+VERSION="0.10.0"
 TAG="v${VERSION}"
 ASSET="Tvashtra_${VERSION}_amd64.AppImage"
 RELEASE_BASE="https://github.com/Misc42/tvashtra-landing/releases/download/${TAG}"
