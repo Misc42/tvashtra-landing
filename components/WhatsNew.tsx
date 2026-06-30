@@ -38,7 +38,7 @@ const pills = [
 const shipped09 = [
   {
     label: "Simulation suite",
-    detail: "Stress · fatigue life · modal (resonance) · buckling",
+    detail: "Stress · fatigue life · modal (resonance) · buckling · thermal",
   },
   {
     label: "Electronics (KiCad)",
@@ -82,6 +82,11 @@ const wave10 = [
     label: "Presentation export",
     href: "#showcase-video-export",
     detail: "Turntable / exploded → MP4 (H.264) + GIF",
+  },
+  {
+    label: "Spur-gear generation",
+    href: "#showcase",
+    detail: "Involute tooth profile from pitch, pressure angle, and count",
   },
 ];
 

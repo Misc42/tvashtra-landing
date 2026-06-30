@@ -302,7 +302,7 @@ const showcases: Showcase[] = [
     feature: "Persistent assembly mate · 6 SOLIDWORKS-style kinds",
     title: "Constraints that outlive the call.",
     body:
-      "Unlike a one-shot align, a mate is stored on the document. Concentric, coincident, parallel, perpendicular, distance, angle. Move a participating part later and the solver re-runs — the moved shape stays bound. Single-constraint resolution today; chained DOF analysis lands in v0.5.",
+      "Unlike a one-shot align, a mate is stored on the document. Concentric, coincident, parallel, perpendicular, distance, angle. Move a participating part later and the solver re-runs — the moved shape stays bound.",
   },
 ];
 
