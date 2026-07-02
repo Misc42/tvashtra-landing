@@ -66,7 +66,7 @@ export default function Install() {
           href={`${REPO}/releases/tag/${TAG}`}
           className="label text-[0.68rem] text-saffron underline-offset-2 hover:underline"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
         >
           Latest: v{VERSION} — release notes ↗
         </a>
@@ -94,7 +94,7 @@ export default function Install() {
               href={INSTALL_SCRIPT_URL}
               className="text-saffron underline-offset-2 hover:underline"
               target="_blank"
-              rel="noopener"
+              rel="noopener noreferrer"
             >
               install.sh ↗
             </a>

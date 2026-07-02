@@ -17,7 +17,7 @@ export default function Footer() {
         <a
           href="https://misc42.github.io/misc42labs/"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="underline decoration-rule underline-offset-4 transition hover:text-saffron"
         >
           Misc42 Labs
@@ -26,7 +26,7 @@ export default function Footer() {
         <a
           href="https://x.com/tanaymisra97"
           target="_blank"
-          rel="noreferrer"
+          rel="noopener noreferrer"
           className="underline decoration-rule underline-offset-4 transition hover:text-saffron"
         >
           Tanay Misra

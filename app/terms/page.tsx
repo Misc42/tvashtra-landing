@@ -19,7 +19,7 @@ export default function TermsPage() {
             className="text-saffron underline decoration-rule underline-offset-4 hover:text-ink"
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
             AGPL-3.0-or-later
           </a>
