@@ -8,12 +8,14 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="wrap py-16">
-      <p className="masthead mb-4">Privacy</p>
-      <h1 className="section-title max-w-3xl">
-        Short version: nothing routes through us.
+    <main className="narrow py-20">
+      <p className="mb-3 text-[13.5px] font-semibold text-copper">
+        Privacy · last updated 14 May 2026
+      </p>
+      <h1 className="text-[clamp(36px,4.2vw,52px)] font-bold leading-[1.06] tracking-[-0.03em]">
+        Nothing routes through us.
       </h1>
-      <div className="mt-10 max-w-2xl space-y-6 text-muted">
+      <div className="mt-9 grid gap-5 text-[16.5px] leading-[1.7] text-muted">
         <p>
           Tvashtra runs on your machine. Your prompts go directly from your
           machine to the LLM provider you configured (Anthropic, Google,
@@ -21,28 +23,23 @@ export default function PrivacyPage() {
           requests. We do not retain copies.
         </p>
         <p>
-          The desktop application does not include analytics, telemetry, error
+          The desktop application includes no analytics, telemetry, error
           reporters, or feature-flag SDKs. The build chain compiles cleanly
           without any &ldquo;phone home&rdquo; endpoint.
         </p>
         <p>
-          This landing page is static HTML hosted on GitHub Pages. The waitlist
-          form posts to the third-party endpoint configured at build time
-          (Formspree / Tally / similar) &mdash; that vendor will hold your
-          email address per their own policy. We retain the addresses solely
-          to email you when there is a new release worth trying.
+          This landing page is static HTML on GitHub Pages. The waitlist form
+          posts to a third-party form endpoint — that vendor holds your email
+          address per their own policy. We keep addresses solely to email you
+          when there&rsquo;s a release worth trying.
         </p>
-        <p>
-          Questions: <a
-            className="text-saffron underline decoration-rule underline-offset-4 hover:text-ink"
-            href="mailto:tanaymisra97@gmail.com"
-          >
-            tanaymisra97@gmail.com
-          </a>
-          .
-        </p>
-        <p className="label text-faint">Last updated: 2026-05-14</p>
       </div>
+      <p className="mt-11 border-t border-rule pt-5 text-[13.5px] text-faint">
+        A Misc42 Labs product · questions:{" "}
+        <a href="mailto:hello@misc42.com" className="text-copper">
+          hello@misc42.com
+        </a>
+      </p>
     </main>
   );
 }

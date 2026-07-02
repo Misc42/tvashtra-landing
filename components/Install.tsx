@@ -8,35 +8,24 @@ import WaitlistForm from "@/components/WaitlistForm";
 // 404s for anonymous downloaders. Releases on the landing repo are
 // purely artifact hosting; the v* tag for source provenance lives
 // on the private repo.
-//
-// We pin to the explicit `/releases/download/<tag>/<asset>` URL
-// instead of GitHub's `/releases/latest/download/<asset>` permalink
-// because the latter skips prereleases — and v0.1.0 ships as an
-// alpha (`--prerelease`). Bump VERSION + the v* tag in lockstep
-// when cutting a new release.
 const REPO = "https://github.com/Misc42/tvashtra-landing";
 const VERSION = "0.10.0";
 const TAG = `v${VERSION}`;
-const ASSET_BASE = `${REPO}/releases/download/${TAG}`;
-const LATEST = `${REPO}/releases`;
 
-// One Linux install path, period. The `install.sh` curl-pipe-bash
-// command handles every check: glibc, host libs, download, SHA-256
-// verify, ~/.local/bin install, desktop entry, icon cache refresh.
-// .deb / .rpm / .AppImage assets all live on the Releases page for
-// CI tooling + power users, but the landing surface offers exactly
-// one command. No manual download fallback by design.
-const INSTALL_SCRIPT_URL =
-  "https://misc42.github.io/tvashtra-landing/install.sh";
+// Displayed command drops the protocol for a shorter read; the actual
+// clipboard payload keeps `https://` so a pasted command always resolves
+// regardless of shell config. Intentional split, not a typo.
+const DISPLAY_COMMAND =
+  "curl -fsSL misc42.github.io/tvashtra-landing/install.sh | bash";
+const CLIPBOARD_COMMAND =
+  "curl -fsSL https://misc42.github.io/tvashtra-landing/install.sh | bash";
 
-const oneLinerInstall = `curl -fsSL ${INSTALL_SCRIPT_URL} | bash`;
-
-function CopyButton({ text }: { text: string }) {
+function CopyButton() {
   const [copied, setCopied] = useState(false);
 
   async function copy() {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(CLIPBOARD_COMMAND);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1600);
     } catch {
@@ -48,7 +37,7 @@ function CopyButton({ text }: { text: string }) {
     <button
       type="button"
       onClick={copy}
-      className="label rounded-sm border border-rule px-3 py-2 text-[0.66rem] text-ink transition hover:border-saffron hover:text-saffron"
+      className="rounded-md border border-rule-2 px-3 py-1.5 font-mono text-xs text-muted transition hover:border-copper hover:text-copper"
     >
       {copied ? "Copied" : "Copy"}
     </button>
@@ -57,103 +46,40 @@ function CopyButton({ text }: { text: string }) {
 
 export default function Install() {
   return (
-    <section id="install" className="wrap border-b border-rule py-20">
-      <div className="flex flex-wrap items-baseline justify-between gap-4">
-        <p className="section-eyebrow mb-4" data-index="06">
-          Install
-        </p>
-        <a
-          href={`${REPO}/releases/tag/${TAG}`}
-          className="label text-[0.68rem] text-saffron underline-offset-2 hover:underline"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Latest: v{VERSION} — release notes ↗
-        </a>
-      </div>
-      <h2 className="section-title max-w-3xl">
-        Linux first.{" "}
-        <span className="text-muted">macOS &amp; Windows in the pipeline.</span>
-      </h2>
-      <div className="mt-10 grid gap-6 lg:grid-cols-[1.1fr_1fr]">
-        <div className="card overflow-hidden">
-          <div className="flex items-center justify-between border-b border-rule px-5 py-3">
-            <p className="label text-saffron">
-              Linux &middot; paste, hit Enter
-            </p>
-            <CopyButton text={oneLinerInstall} />
-          </div>
-          <pre className="command whitespace-pre-wrap px-5 py-6">
-            <code>{oneLinerInstall}</code>
-          </pre>
-          <div className="label flex flex-wrap items-center justify-between gap-3 border-t border-rule px-5 py-3 text-faint">
-            <span>
-              AppImage &middot; ~95 MB &middot; SHA-256 verified
-            </span>
-            <a
-              href={INSTALL_SCRIPT_URL}
-              className="text-saffron underline-offset-2 hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              install.sh ↗
-            </a>
-          </div>
-          <div className="label border-t border-rule px-5 py-3 text-faint">
-            Power users:{" "}
-            <a
-              href={`${ASSET_BASE}/Tvashtra_${VERSION}_amd64.deb`}
-              className="text-ink underline-offset-2 hover:text-saffron hover:underline"
-            >
-              .deb
-            </a>{" "}
-            &middot;{" "}
-            <a
-              href={`${ASSET_BASE}/Tvashtra-${VERSION}-1.x86_64.rpm`}
-              className="text-ink underline-offset-2 hover:text-saffron hover:underline"
-            >
-              .rpm
-            </a>{" "}
-            (host OCCT 7.8 required)
-          </div>
+    <section id="install" className="border-t border-rule bg-bg-alt">
+      <div className="wrap grid items-center gap-14 py-20 lg:grid-cols-[0.9fr_1.1fr]">
+        <div>
+          <h2 className="text-[38px] font-bold leading-[1.12] tracking-[-0.025em]">
+            One line on Linux.
+          </h2>
+          <p className="mt-4 text-[16.5px] leading-[1.55] text-muted">
+            AppImage, SHA-256 verified, ~95 MB. macOS and Windows builds land
+            from CI — leave an email for one mail when they do. No newsletter
+            apparatus.
+          </p>
+          <WaitlistForm className="mt-6" />
         </div>
 
-        <div className="flex flex-col gap-6">
-          <div className="card flex flex-col gap-3 p-6">
-            <p className="masthead">macOS</p>
-            <p className="text-muted">
-              Universal2 .dmg (Intel + Apple Silicon) building in CI.
-              Unsigned on first release &mdash; right-click &rarr; Open to
-              bypass Gatekeeper.
-            </p>
-            <a
-              href={LATEST}
-              className="label mt-2 inline-flex items-center gap-2 self-start text-[0.68rem] text-saffron hover:underline"
-            >
-              Track on releases &rarr;
-            </a>
+        <div className="card overflow-hidden bg-bg-code">
+          <div className="flex items-center justify-between border-b border-rule px-[18px] py-3">
+            <span className="font-mono text-xs text-faint">terminal</span>
+            <CopyButton />
           </div>
-          <div className="card flex flex-col gap-3 p-6">
-            <p className="masthead">Windows</p>
-            <p className="text-muted">
-              x64 .msi installer building in CI. Unsigned on first
-              release &mdash; SmartScreen warning expected; click &ldquo;More
-              info&rdquo; &rarr; &ldquo;Run anyway.&rdquo;
-            </p>
+          <pre className="overflow-x-auto px-[18px] py-[22px] font-mono text-[13.5px] leading-[1.7] text-ink">
+            <code>
+              <span className="text-faint">$</span> {DISPLAY_COMMAND}
+            </code>
+          </pre>
+          <div className="border-t border-rule px-[18px] py-3 font-mono text-[11.5px] text-faint">
+            v{VERSION} · AppImage ·{" "}
             <a
-              href={LATEST}
-              className="label mt-2 inline-flex items-center gap-2 self-start text-[0.68rem] text-saffron hover:underline"
+              href={`${REPO}/releases/tag/${TAG}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted underline underline-offset-2 hover:text-copper"
             >
-              Track on releases &rarr;
+              .deb / .rpm on the releases page
             </a>
-          </div>
-          <div className="card flex flex-col gap-4 p-6">
-            <p className="masthead">Want a heads-up?</p>
-            <p className="text-muted">
-              One mail when the macOS / Windows builds land. No newsletter
-              apparatus.
-            </p>
-            <WaitlistForm context="install" className="mt-auto" />
           </div>
         </div>
       </div>

@@ -5,20 +5,7 @@ import { submitWaitlist } from "@/lib/waitlist";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
-interface WaitlistFormProps {
-  context?: "install" | "browser" | "hero";
-  className?: string;
-}
-
-const messages = {
-  success: "Thanks — we'll email you when there's something to try.",
-  error: "Couldn't reach the waitlist server — DM @tanaymisra97 instead.",
-} as const;
-
-export default function WaitlistForm({
-  context = "hero",
-  className = "",
-}: WaitlistFormProps) {
+export default function WaitlistForm({ className = "" }: { className?: string }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
 
@@ -40,56 +27,57 @@ export default function WaitlistForm({
 
   if (status === "success") {
     return (
-      <p
-        className={`font-mono text-sm text-green ${className}`}
+      <span
+        className={`self-center text-sm font-semibold text-success ${className}`}
         role="status"
         aria-live="polite"
-        data-context={context}
       >
-        {messages.success}
-      </p>
+        ✓ You&rsquo;re on the list
+      </span>
     );
   }
 
   const disabled = status === "submitting";
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={`flex flex-col gap-3 sm:flex-row sm:items-stretch ${className}`}
-      data-context={context}
-      noValidate
-    >
-      <label className="sr-only" htmlFor={`waitlist-${context}`}>
-        Email
-      </label>
-      <input
-        id={`waitlist-${context}`}
-        type="email"
-        required
-        autoComplete="email"
-        spellCheck={false}
-        placeholder="you@yourdomain.com"
-        value={email}
-        onChange={(event) => setEmail(event.target.value)}
-        disabled={disabled}
-        className="min-w-0 flex-1 rounded-sm border border-rule bg-paper px-4 py-3 font-mono text-sm text-ink outline-none transition placeholder:text-faint focus:border-saffron disabled:opacity-60"
-      />
-      <button
-        type="submit"
-        disabled={disabled}
-        className="label inline-flex items-center justify-center rounded-sm border border-saffron bg-saffron px-5 py-3 text-[0.72rem] text-paper transition hover:bg-transparent hover:text-saffron disabled:cursor-not-allowed disabled:opacity-60"
+    <div className={className}>
+      <form
+        onSubmit={handleSubmit}
+        className="flex max-w-[420px] gap-2.5"
+        noValidate
       >
-        {status === "submitting" ? "Sending..." : "Join the beta"}
-      </button>
-      {status === "error" && (
-        <p
-          role="alert"
-          className="font-mono text-xs text-[var(--accent-warm)] sm:absolute sm:translate-y-[3.6rem]"
+        <label className="sr-only" htmlFor="waitlist-email">
+          Email
+        </label>
+        <input
+          id="waitlist-email"
+          type="email"
+          required
+          autoComplete="email"
+          spellCheck={false}
+          placeholder="you@yourdomain.com"
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          disabled={disabled}
+          className="min-w-0 flex-1 rounded-[10px] border border-rule-2 bg-bg px-4 py-3 text-sm text-ink outline-none transition placeholder:text-faint focus:border-copper disabled:opacity-60"
+        />
+        <button
+          type="submit"
+          disabled={disabled}
+          className="shrink-0 rounded-[10px] bg-copper px-5 py-3 text-sm font-semibold text-bg transition hover:bg-copper-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {messages.error}
+          {status === "submitting" ? "Sending…" : "Notify me"}
+        </button>
+      </form>
+      {status === "error" && (
+        <p role="alert" className="mt-2 text-xs text-copper">
+          Couldn&rsquo;t reach the waitlist server — try again, or email{" "}
+          <a href="mailto:hello@misc42.com" className="underline underline-offset-2">
+            hello@misc42.com
+          </a>
+          .
         </p>
       )}
-    </form>
+    </div>
   );
 }

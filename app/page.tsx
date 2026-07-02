@@ -1,27 +1,17 @@
 import Hero from "@/components/Hero";
-import WhatsNew from "@/components/WhatsNew";
-import Problem from "@/components/Problem";
-import HowItWorks from "@/components/HowItWorks";
-import Anatomy from "@/components/Anatomy";
-import WatchItBuild from "@/components/WatchItBuild";
-import Showcase from "@/components/Showcase";
+import Loop from "@/components/Loop";
+import Proof from "@/components/Proof";
 import Install from "@/components/Install";
-import TryInBrowser from "@/components/TryInBrowser";
-import Faq from "@/components/Faq";
+import PrivacyStrip from "@/components/PrivacyStrip";
 
 export default function HomePage() {
   return (
     <main>
       <Hero />
-      <WhatsNew />
-      <Problem />
-      <HowItWorks />
-      <Anatomy />
-      <WatchItBuild />
-      <Showcase />
+      <Loop />
+      <Proof />
       <Install />
-      <TryInBrowser />
-      <Faq />
+      <PrivacyStrip />
     </main>
   );
 }

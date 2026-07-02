@@ -7,43 +7,48 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="wrap py-16">
-      <p className="masthead mb-4">Terms</p>
-      <h1 className="section-title max-w-3xl">
+    <main className="narrow py-20">
+      <p className="mb-3 text-[13.5px] font-semibold text-copper">
+        Terms · last updated 14 May 2026
+      </p>
+      <h1 className="text-[clamp(36px,4.2vw,52px)] font-bold leading-[1.06] tracking-[-0.03em]">
         Beta software. No warranty.
       </h1>
-      <div className="mt-10 max-w-2xl space-y-6 text-muted">
+      <div className="mt-9 grid gap-5 text-[16.5px] leading-[1.7] text-muted">
         <p>
           Tvashtra is licensed under{" "}
           <a
-            className="text-saffron underline decoration-rule underline-offset-4 hover:text-ink"
             href="https://www.gnu.org/licenses/agpl-3.0.html"
             target="_blank"
             rel="noopener noreferrer"
+            className="text-copper underline underline-offset-[3px]"
           >
             AGPL-3.0-or-later
           </a>
-          . Source goes public at v1. The beta builds you receive are the same
-          codebase under the same license &mdash; you can redistribute, modify,
-          and run them per the AGPL terms.
+          . Source goes public at v1. The beta builds you receive are the
+          same codebase under the same license — you can redistribute,
+          modify, and run them per the AGPL terms.
         </p>
         <p>
-          The software is provided &ldquo;as is&rdquo; without warranty of any
-          kind. CAD output is your responsibility: verify dimensions, tolerances
-          and assembly fits before you cut metal, print plastic, or
-          manufacture anything that matters.
+          The software is provided &ldquo;as is&rdquo; without warranty of
+          any kind. CAD output is your responsibility: verify dimensions,
+          tolerances and assembly fits before you cut metal, print plastic,
+          or manufacture anything that matters.
         </p>
         <p>
           The LLM may produce wrong geometry. The closed-loop verification
           mitigates this but does not eliminate it. Treat Tvashtra like a
-          drafter who has done their first day at the job &mdash; useful,
-          fast, capable of egregious mistakes.
+          drafter on their first day at the job — useful, fast, capable of
+          egregious mistakes.
         </p>
-        <p>
-          Disputes governed by the laws of India. Forum: Delhi NCT.
-        </p>
-        <p className="label text-faint">Last updated: 2026-05-14</p>
+        <p>Disputes governed by the laws of India. Forum: Delhi NCT.</p>
       </div>
+      <p className="mt-11 border-t border-rule pt-5 text-[13.5px] text-faint">
+        A Misc42 Labs product · questions:{" "}
+        <a href="mailto:hello@misc42.com" className="text-copper">
+          hello@misc42.com
+        </a>
+      </p>
     </main>
   );
 }

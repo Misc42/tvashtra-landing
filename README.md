@@ -1,5 +1,7 @@
 # tvashtra-landing
 
+**Live · https://misc42.github.io/tvashtra-landing/**
+
 Public landing + binary releases for [Tvashtra](https://github.com/Misc42/tvashtra) —
 an LLM-driven desktop CAD application. Two-repo mirror of the Sanketra
 pattern: the source code repo stays private forever, this repo is the
@@ -34,7 +36,7 @@ same restraint.
 - Tailwind 4 (CSS-first config in `app/globals.css`)
 - TypeScript 5
 - pnpm 10
-- Fonts via `next/font`: IBM Plex Sans, IBM Plex Mono, Instrument Serif, Tiro Devanagari Hindi
+- Fonts via `next/font`: Schibsted Grotesk, Geist Mono, Anek Devanagari
 
 No runtime backend. The waitlist form POSTs to a third-party endpoint of your
 choice (Formspree / Tally / Plausible Forms / etc.).
@@ -75,7 +77,8 @@ NEXT_PUBLIC_WAITLIST_ENDPOINT=https://formspree.io/f/xxxxxxxx pnpm build
 ```
 
 If the variable is missing at build time, the form will throw on submit and
-fall back to the "DM @tanaymisra97" error state — the page still ships.
+fall back to the "couldn't reach the server, email hello@misc42.com" error
+state — the page still ships.
 
 ## Deploy (GitHub Pages)
 
@@ -94,14 +97,13 @@ directory to GitHub Pages. To activate:
 ```
 app/
   layout.tsx          font loading + html shell
-  page.tsx            single-page landing — Hero, Problem, How, Tour, Install, Browser, FAQ
-  privacy/page.tsx    privacy stub
-  terms/page.tsx      terms stub
-  globals.css         palette tokens + noise overlay + utilities
+  page.tsx            single-page landing — Hero, Loop, Proof, Install, PrivacyStrip
+  privacy/page.tsx    privacy doc
+  terms/page.tsx      terms doc
+  globals.css         palette tokens + utilities
 
 components/
-  Hero.tsx, Problem.tsx, HowItWorks.tsx, Tour.tsx,
-  Install.tsx, TryInBrowser.tsx, Faq.tsx,
+  Hero.tsx, Loop.tsx, Proof.tsx, Install.tsx, PrivacyStrip.tsx,
   Nav.tsx, Footer.tsx, WaitlistForm.tsx
 
 lib/
@@ -129,4 +131,4 @@ respective owners.
 - Press kit page once there is press.
 - Localised Hindi copy for the marketing surface (currently bilingual in spots, English-dominant).
 
-Issues + DMs to [@tanaymisra97](https://x.com/tanaymisra97).
+Issues + DMs to [@misc42](https://x.com/misc42) or hello@misc42.com.
