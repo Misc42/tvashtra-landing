@@ -5,13 +5,28 @@
   --color-bg-alt: var(--bg-alt);
   --color-bg-code: var(--bg-code);
   --color-ink: var(--ink);
+  --color-ink-hover: var(--ink-hover);
   --color-muted: var(--ink-muted);
   --color-faint: var(--ink-faint);
   --color-rule: var(--rule);
   --color-rule-2: var(--rule-2);
   --color-copper: var(--copper);
   --color-copper-hover: var(--copper-hover);
+  --color-copper-text: var(--copper-text);
+  --color-copper-text-hover: var(--copper-text-hover);
   --color-success: var(--success);
+
+  /* Fixed dark-surface palette — NOT theme-swapped. The install terminal
+     card and the product-screenshot frames stay dark regardless of the
+     page theme (a dark terminal on a light page is the correct read, and
+     the screenshots are dark-shell captures of the app itself). */
+  --color-term-ink: var(--term-ink);
+  --color-term-muted: var(--term-muted);
+  --color-term-faint: var(--term-faint);
+  --color-term-rule: var(--term-rule);
+  --color-term-rule-2: var(--term-rule-2);
+  --color-term-copper: var(--term-copper);
+  --color-term-copper-hover: var(--term-copper-hover);
 
   --font-sans: var(--font-schibsted), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -19,17 +34,36 @@
 }
 
 :root {
-  --bg: #0e0e10;
-  --bg-alt: #121214;
+  /* Light theme, shared with the hub/Sanketra palette. */
+  --bg: #fafaf7;
+  --bg-alt: #ffffff;
   --bg-code: #0a0a0c;
-  --ink: #ededef;
-  --ink-muted: #a1a1aa;
-  --ink-faint: #6b6b74;
-  --rule: #232326;
-  --rule-2: #2e2e33;
+  --ink: #131315;
+  --ink-hover: #2a2a2e;
+  --ink-muted: #5f5f66;
+  --ink-faint: #8a8a92;
+  --rule: #e8e7e1;
+  --rule-2: #d9d8d0;
+
+  /* Copper identity, split in two: raw #E8B339 only reads on dark
+     surfaces (the hero glow line, the terminal card), so text/links/
+     borders on the light page use the darker, AA-legible copper-text
+     instead. */
   --copper: #e8b339;
   --copper-hover: #d9a32e;
-  --success: #34d399;
+  --copper-text: #b45309;
+  --copper-text-hover: #92400e;
+
+  --success: #15803d;
+
+  --term-ink: #ededef;
+  --term-muted: #a1a1aa;
+  --term-faint: #6b6b74;
+  --term-rule: #232326;
+  --term-rule-2: #2e2e33;
+  --term-copper: #e8b339;
+  --term-copper-hover: #d9a32e;
+
   --pad: 40px;
 }
 
@@ -59,7 +93,7 @@ body {
 }
 
 ::selection {
-  background: rgba(232, 179, 57, 0.25);
+  background: rgba(180, 83, 9, 0.18);
 }
 
 a {
@@ -94,7 +128,7 @@ footer {
   font-family: var(--font-deva);
 }
 
-/* Primary CTA — solid copper, dark text. Nav uses the same class at a
+/* Primary CTA — solid ink, paper text. Nav uses the same class at a
    smaller scale via .btn-nav. */
 .btn-primary {
   display: inline-flex;
@@ -105,11 +139,11 @@ footer {
   font-size: 15px;
   font-weight: 600;
   color: var(--bg);
-  background: var(--copper);
+  background: var(--ink);
   transition: background 0.15s;
 }
 .btn-primary:hover {
-  background: var(--copper-hover);
+  background: var(--ink-hover);
 }
 
 .btn-secondary {
@@ -134,11 +168,11 @@ footer {
   font-size: 13.5px;
   font-weight: 600;
   color: var(--bg);
-  background: var(--copper);
+  background: var(--ink);
   transition: background 0.15s;
 }
 .btn-nav:hover {
-  background: var(--copper-hover);
+  background: var(--ink-hover);
 }
 
 .card {

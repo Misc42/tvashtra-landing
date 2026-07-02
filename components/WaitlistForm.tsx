@@ -59,18 +59,18 @@ export default function WaitlistForm({ className = "" }: { className?: string })
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           disabled={disabled}
-          className="min-w-0 flex-1 rounded-[10px] border border-rule-2 bg-bg px-4 py-3 text-sm text-ink outline-none transition placeholder:text-faint focus:border-copper disabled:opacity-60"
+          className="min-w-0 flex-1 rounded-[10px] border border-rule-2 bg-bg px-4 py-3 text-sm text-ink outline-none transition placeholder:text-faint focus:border-copper-text disabled:opacity-60"
         />
         <button
           type="submit"
           disabled={disabled}
-          className="shrink-0 rounded-[10px] bg-copper px-5 py-3 text-sm font-semibold text-bg transition hover:bg-copper-hover disabled:cursor-not-allowed disabled:opacity-60"
+          className="shrink-0 rounded-[10px] bg-ink px-5 py-3 text-sm font-semibold text-bg transition hover:bg-ink-hover disabled:cursor-not-allowed disabled:opacity-60"
         >
           {status === "submitting" ? "Sending…" : "Notify me"}
         </button>
       </form>
       {status === "error" && (
-        <p role="alert" className="mt-2 text-xs text-copper">
+        <p role="alert" className="mt-2 text-xs text-copper-text">
           Couldn&rsquo;t reach the waitlist server — try again, or email{" "}
           <a href="mailto:hello@misc42.com" className="underline underline-offset-2">
             hello@misc42.com

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="narrow py-20">
-      <p className="mb-3 text-[13.5px] font-semibold text-copper">
+      <p className="mb-3 text-[13.5px] font-semibold text-copper-text">
         Privacy · last updated 14 May 2026
       </p>
       <h1 className="text-[clamp(36px,4.2vw,52px)] font-bold leading-[1.06] tracking-[-0.03em]">
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
       </div>
       <p className="mt-11 border-t border-rule pt-5 text-[13.5px] text-faint">
         A Misc42 Labs product · questions:{" "}
-        <a href="mailto:hello@misc42.com" className="text-copper">
+        <a href="mailto:hello@misc42.com" className="text-copper-text">
           hello@misc42.com
         </a>
       </p>

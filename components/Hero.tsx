@@ -5,13 +5,13 @@ import { asset } from "@/lib/asset";
 export default function Hero() {
   return (
     <section className="wrap relative pt-[88px] text-center">
-      <p className="mb-4 text-[13.5px] font-semibold text-copper">
+      <p className="mb-4 text-[13.5px] font-semibold text-copper-text">
         ◐ Private beta · v0.10 ·{" "}
         <a
           href="https://misc42.github.io/misc42labs/"
           target="_blank"
           rel="noopener noreferrer"
-          className="underline decoration-copper/40 underline-offset-2 hover:decoration-copper"
+          className="underline decoration-copper-text/40 underline-offset-2 hover:decoration-copper-text"
         >
           a Misc42 Labs product
         </a>

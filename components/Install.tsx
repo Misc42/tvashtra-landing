@@ -37,7 +37,7 @@ function CopyButton() {
     <button
       type="button"
       onClick={copy}
-      className="rounded-md border border-rule-2 px-3 py-1.5 font-mono text-xs text-muted transition hover:border-copper hover:text-copper"
+      className="rounded-md border border-term-rule-2 px-3 py-1.5 font-mono text-xs text-term-muted transition hover:border-term-copper hover:text-term-copper"
     >
       {copied ? "Copied" : "Copy"}
     </button>
@@ -60,23 +60,27 @@ export default function Install() {
           <WaitlistForm className="mt-6" />
         </div>
 
+        {/* Stays dark regardless of page theme — a terminal card reads as
+            a terminal because it's dark; recoloring it to match a light
+            page would break the metaphor. Uses the fixed term-* tokens,
+            not the theme-swapped ones the rest of the page reads from. */}
         <div className="card overflow-hidden bg-bg-code">
-          <div className="flex items-center justify-between border-b border-rule px-[18px] py-3">
-            <span className="font-mono text-xs text-faint">terminal</span>
+          <div className="flex items-center justify-between border-b border-term-rule px-[18px] py-3">
+            <span className="font-mono text-xs text-term-faint">terminal</span>
             <CopyButton />
           </div>
-          <pre className="overflow-x-auto px-[18px] py-[22px] font-mono text-[13.5px] leading-[1.7] text-ink">
+          <pre className="overflow-x-auto px-[18px] py-[22px] font-mono text-[13.5px] leading-[1.7] text-term-ink">
             <code>
-              <span className="text-faint">$</span> {DISPLAY_COMMAND}
+              <span className="text-term-faint">$</span> {DISPLAY_COMMAND}
             </code>
           </pre>
-          <div className="border-t border-rule px-[18px] py-3 font-mono text-[11.5px] text-faint">
+          <div className="border-t border-term-rule px-[18px] py-3 font-mono text-[11.5px] text-term-faint">
             v{VERSION} · AppImage ·{" "}
             <a
               href={`${REPO}/releases/tag/${TAG}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-muted underline underline-offset-2 hover:text-copper"
+              className="text-term-muted underline underline-offset-2 hover:text-term-copper"
             >
               .deb / .rpm on the releases page
             </a>

@@ -42,7 +42,7 @@ export default function Loop() {
               key={step.label}
               className="card bg-bg p-[26px]"
             >
-              <p className="mb-2.5 font-mono text-xs text-copper">
+              <p className="mb-2.5 font-mono text-xs text-copper-text">
                 {step.label}
               </p>
               <h3 className="text-[19px] font-bold tracking-[-0.01em]">
