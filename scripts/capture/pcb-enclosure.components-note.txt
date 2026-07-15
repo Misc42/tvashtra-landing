@@ -1,0 +1,1 @@
+Real component STEP models from KiCad 6 demos (stickhub/3dmodels): APHB1608(led), TDFN-8(ic), Crystal_SMD_4P(crystal), JST_SH_SM04B(connector). Copied to .pcb-capture-tmp/comp/ (project-relative, cad_import path-jail), imported + transformed onto the board. NOT cuboids.

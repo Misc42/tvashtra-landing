@@ -53,9 +53,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://tvashtra.app",
   },
-  icons: {
-    icon: "/favicon.svg",
-  },
+  // Favicons come from the App Router file conventions (app/icon.png,
+  // app/favicon.ico, app/apple-icon.png) — Next generates the <link> tags with
+  // the correct basePath. The old manual `icon: "/favicon.svg"` resolved to the
+  // domain root (404 under the /tvashtra-landing/ basePath) and its glyph was
+  // font-dependent text that browsers didn't render.
 };
 
 export default function RootLayout({

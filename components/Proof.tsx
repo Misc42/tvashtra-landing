@@ -22,7 +22,7 @@ const proofs: Proof[] = [
   },
   {
     img: "/screenshots/showcase/stress-orbit-poster.jpg",
-    fit: "cover",
+    fit: "contain",
     title: "Stress, solved in-chat",
     prompt: "Clamp the bottom, 100 N down on top, steel. Where does it yield?",
   },

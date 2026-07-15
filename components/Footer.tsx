@@ -24,7 +24,17 @@ export default function Footer() {
             </Link>
           ))}
         </nav>
-        <span>© 2026 Misc42 Labs</span>
+        <span>
+          © 2026{" "}
+          <Link
+            href="https://misc42.github.io/misc42labs/"
+            className="transition hover:text-ink"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Misc42 Labs
+          </Link>
+        </span>
       </div>
     </footer>
   );
