@@ -70,7 +70,7 @@ export default function Proof() {
               key={p.img}
               className="card overflow-hidden bg-bg-alt"
             >
-              <div className="relative aspect-[4/3] w-full bg-bg-code">
+              <div className="relative aspect-[4/3] w-full bg-bg">
                 <Image
                   src={asset(p.img)}
                   alt={p.title}

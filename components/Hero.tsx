@@ -38,7 +38,7 @@ export default function Hero() {
         Linux today · macOS &amp; Windows in CI · Claude / Gemini / OpenAI / Ollama
       </p>
       <div className="relative mx-auto mt-14 max-w-[1020px] overflow-hidden rounded-t-2xl border border-b-0 border-rule shadow-[0_-1px_0_rgba(232,179,57,0.2)_inset,0_40px_80px_-40px_rgba(0,0,0,0.8)]">
-        <div className="relative aspect-[16/9.6] w-full bg-bg-code">
+        <div className="relative aspect-[16/9.6] w-full bg-bg">
           <Image
             src={asset("/screenshots/forge-black-shell.png")}
             alt="The Tvashtra desktop shell — chat panel, render viewport, and the kernel's own output on screen"
