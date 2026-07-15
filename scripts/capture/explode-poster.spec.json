@@ -1,0 +1,7 @@
+{"bodies":[
+  {"w":64,"h":64,"d":7,"z0":0,"z1":0,"material":"polished_steel"},
+  {"w":52,"h":52,"d":10,"z0":7,"z1":26,"material":"brushed_aluminum"},
+  {"w":46,"h":46,"d":3,"z0":18,"z1":52,"material":"anodized_red"},
+  {"w":40,"h":40,"d":6,"z0":22,"z1":78,"material":"brass"},
+  {"w":64,"h":64,"d":6,"z0":29,"z1":104,"material":"brushed_aluminum"}
+]}
