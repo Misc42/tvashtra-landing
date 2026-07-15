@@ -126,6 +126,7 @@ footer {
 
 .deva {
   font-family: var(--font-deva);
+  font-weight: 700;
 }
 
 /* Primary CTA — solid ink, paper text. Nav uses the same class at a
