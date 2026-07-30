@@ -1,7 +1,7 @@
 const columns = [
   {
     title: "Bring your own model",
-    body: "Claude, Gemini, OpenAI, or local Ollama. Your key, your spend.",
+    body: "Claude, Gemini, or OpenAI. Your key, your spend. Local Ollama is experimental.",
   },
   {
     title: "Nothing routes through us",
