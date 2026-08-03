@@ -57,6 +57,17 @@ export default function Install() {
             from CI — leave an email for one mail when they do. No newsletter
             apparatus.
           </p>
+          {/* Model requirements. Deliberately states the REQUIREMENT (derived
+              from our own measured payload) and not a hardware figure — no one
+              has yet completed a build on a machine sized for local, so a
+              "works with N GB" line would be a claim we cannot back. */}
+          <p className="mt-4 text-[16.5px] leading-[1.55] text-muted">
+            Bring your own model. An API key — Claude, Gemini or OpenAI — runs on
+            any machine. A local model is experimental: the whole tool catalog
+            ships every turn, so it needs 64k of context, native tool calling,
+            and vision on top of that if you want the self-verify loop. It can
+            run on a different machine on your network.
+          </p>
           <WaitlistForm className="mt-6" />
         </div>
 
