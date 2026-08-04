@@ -20,8 +20,11 @@ export default function Nav() {
           <span className="text-[17px] font-bold tracking-[-0.02em]">
             Tvashtra
           </span>
+          {/* त्वष्टृ — the form the app's own wordmark (Viewport watermark) and
+              the readme use. This read त्वष्त्र, so the site and the running
+              application disagreed on the product's own name. */}
           <span className="deva text-[15px] font-medium text-faint">
-            त्वष्त्र
+            त्वष्टृ
           </span>
         </Link>
         <nav className="hidden items-center gap-[30px] text-sm font-medium text-muted md:flex">
