@@ -21,16 +21,21 @@ const proofs: Proof[] = [
     prompt: "Change every M5 hole on this bracket to M6.",
   },
   {
-    img: "/screenshots/showcase/stress-orbit-poster.jpg",
+    // The prompt has to name the load the asset was actually solved at. The
+    // previous copy said 100 N against an image solved at 3,000 N.
+    img: "/screenshots/showcase/stress-solve.png",
     fit: "contain",
     title: "Stress, solved in-chat",
-    prompt: "Clamp the bottom, 100 N down on top, steel. Where does it yield?",
+    prompt: "Clamp the mounting plate. 3,000 N pressing down on the arm. Steel. Where does it yield?",
   },
   {
+    // "ranked" was the old copy, written when the tile put a #1 badge on one
+    // variant. With the solver reading its results correctly there is no single
+    // winner, so the honest claim is that it measures them, not that it ranks.
     img: "/screenshots/showcase/explore-designs.png",
     fit: "contain",
     title: "It explores alternatives",
-    prompt: "Same brief — give me genuinely different structures, ranked.",
+    prompt: "Same brief, same 100×40×40 envelope — give me genuinely different structures, and weigh them.",
   },
   {
     img: "/screenshots/showcase/pcb-enclosure.png",
