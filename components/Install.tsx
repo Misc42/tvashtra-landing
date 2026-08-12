@@ -9,7 +9,7 @@ import WaitlistForm from "@/components/WaitlistForm";
 // purely artifact hosting; the v* tag for source provenance lives
 // on the private repo.
 const REPO = "https://github.com/Misc42/tvashtra-landing";
-const VERSION = "0.10.0";
+const VERSION = "0.11.0";
 const TAG = `v${VERSION}`;
 
 // Displayed command drops the protocol for a shorter read; the actual
