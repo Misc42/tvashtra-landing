@@ -38,7 +38,12 @@ export default function Hero() {
         Linux today · macOS &amp; Windows in CI · Claude / Gemini / OpenAI · Ollama (experimental)
       </p>
       <div className="relative mx-auto mt-14 max-w-[1020px] overflow-hidden rounded-t-2xl border border-b-0 border-rule shadow-[0_-1px_0_rgba(232,179,57,0.2)_inset,0_40px_80px_-40px_rgba(0,0,0,0.8)]">
-        <div className="relative aspect-[16/9.6] w-full bg-bg">
+        {/* Aspect matches the screenshot. It was 16/9.6 (1.667) around a
+            3840x2160 shot (1.778), so `object-cover` scaled to fill the height
+            and cut 6.2% of the width — which on this image is the outer edge of
+            the history panel on one side and the chat panel on the other, on the
+            one picture whose job is to show the whole product. */}
+        <div className="relative aspect-[16/9] w-full bg-bg">
           <Image
             src={asset("/screenshots/forge-black-shell.png")}
             alt="The Tvashtra desktop shell — chat panel, render viewport, and the kernel's own output on screen"
