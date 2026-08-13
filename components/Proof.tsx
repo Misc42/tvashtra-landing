@@ -30,8 +30,12 @@ const proofs: Proof[] = [
   },
   {
     // "ranked" was the old copy, written when the tile put a #1 badge on one
-    // variant. With the solver reading its results correctly there is no single
-    // winner, so the honest claim is that it measures them, not that it ranks.
+    // variant off a solver that was misreading its own results. The claim is
+    // that the tool MEASURES the alternatives, not that it ranks them — the
+    // tile reports whatever the numbers say, and on this set of sections that
+    // is one variant winning both columns. The parts are authored in
+    // tvashtra's scripts/build-showcase-variants.sh so the figures can be
+    // rebuilt; the previous set could not be, which is why they changed.
     img: "/screenshots/showcase/explore-designs.png",
     fit: "contain",
     title: "It explores alternatives",
