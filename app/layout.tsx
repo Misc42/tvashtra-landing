@@ -3,6 +3,7 @@ import { Anek_Devanagari, Geist_Mono, Schibsted_Grotesk } from "next/font/google
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { SITE_URL, siteUrl } from "@/lib/site";
 
 const schibsted = Schibsted_Grotesk({
   subsets: ["latin"],
@@ -26,7 +27,7 @@ const anekDevanagari = Anek_Devanagari({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tvashtra.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Tvashtra — CAD you can talk to",
     template: "%s — Tvashtra",
@@ -37,9 +38,12 @@ export const metadata: Metadata = {
     title: "Tvashtra — CAD you can talk to",
     description:
       "Desktop CAD where the model builds, sees, and verifies its own work. Real OCCT B-rep, no SDFs, no toy meshes.",
-    url: "https://tvashtra.app",
+    url: SITE_URL,
     siteName: "Tvashtra",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
+    // Absolute, not "/og.png". A leading-slash path resolved against a
+    // metadataBase that carries a basePath drops the basePath, which is how
+    // the card would end up pointing at the wrong origin again.
+    images: [{ url: siteUrl("/og.png"), width: 1200, height: 630 }],
     locale: "en_IN",
     type: "website",
   },
@@ -48,10 +52,10 @@ export const metadata: Metadata = {
     title: "Tvashtra — CAD you can talk to",
     description:
       "Desktop CAD where the model builds, sees, and verifies its own work.",
-    images: ["/og.png"],
+    images: [siteUrl("/og.png")],
   },
   alternates: {
-    canonical: "https://tvashtra.app",
+    canonical: SITE_URL,
   },
   // Favicons come from the App Router file conventions (app/icon.png,
   // app/favicon.ico, app/apple-icon.png) — Next generates the <link> tags with

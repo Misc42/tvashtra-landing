@@ -30,6 +30,13 @@ Live queue for the public landing site. Product/kernel work lives in the
       assets that do not exist yet. Downloads resolve against
       `Misc42/tvashtra-landing` releases, since the source repo is private and
       its `/releases` 404s for anonymous downloaders.
+- [ ] **No lint or type gate on this repo.** `.github/workflows/` holds only
+      `pages.yml`, which builds and deploys. `tsc --noEmit` and `pnpm lint` both
+      pass today and were run by hand; nothing enforces that. `prettier` is not
+      a dependency here either, so the formatting check the kernel repo runs
+      over `ui/` has no equivalent. A type error would surface as a failed
+      deploy rather than a failed check.
+
 - [ ] **Product screenshots / showcase assets.** Capture only from a shipped
       RELEASE, and only once UI-affecting work has landed — a mid-arc capture is
       invalidated by the next fix, and shots of unreleased UI advertise something
