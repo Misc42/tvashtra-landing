@@ -14,12 +14,22 @@ Live queue for the public landing site. Product/kernel work lives in the
       at `docs/design/local-model-requirements.md`; the publish rule is stated
       there. If the predictions fail, the honest line is the requirement without
       a number — do not soften a failed test into a hedged figure.
-- [ ] **`VERSION` in `components/Install.tsx` tracks the release, not `main`.**
-      It reads `0.10.0` and the download links resolve against
-      `Misc42/tvashtra-landing` releases (the source repo is private, so its
-      `/releases` 404s for anonymous downloaders). Bump this only AFTER a release
-      has actually published — a bump ahead of publish leaves the site
-      advertising assets that do not exist yet.
+- [ ] **Three files pin the version; decide whether `public/VERSION` should be
+      one of them.** `components/Install.tsx`, `public/install.sh` and
+      `public/VERSION` each carry it independently. The v0.11.0 bump reached the
+      first two and its commit message says "in both places that pin it" — there
+      were three, and `public/VERSION` sat on `0.10.0`, served live at
+      `misc42.github.io/tvashtra-landing/VERSION`, until it was corrected. No
+      component, script or config in this repo reads that file, so it is a
+      published endpoint with no in-repo consumer: either generate it from
+      `Install.tsx` at build time, or drop it. Owner's call, because an external
+      consumer would not be visible from here.
+
+      The rule that made the bump safe stays: bump only AFTER a release has
+      actually published — a bump ahead of publish leaves the site advertising
+      assets that do not exist yet. Downloads resolve against
+      `Misc42/tvashtra-landing` releases, since the source repo is private and
+      its `/releases` 404s for anonymous downloaders.
 - [ ] **Product screenshots / showcase assets.** Capture only from a shipped
       RELEASE, and only once UI-affecting work has landed — a mid-arc capture is
       invalidated by the next fix, and shots of unreleased UI advertise something
