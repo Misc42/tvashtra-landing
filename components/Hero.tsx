@@ -6,7 +6,7 @@ export default function Hero() {
   return (
     <section className="wrap relative pt-[88px] text-center">
       <p className="mb-4 text-[13.5px] font-semibold text-copper-text">
-        ◐ Private beta · v0.10 ·{" "}
+        ◐ Private beta · v0.12 ·{" "}
         <a
           href="https://misc42.github.io/misc42labs/"
           target="_blank"

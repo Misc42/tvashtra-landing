@@ -23,7 +23,7 @@ const steps: Step[] = [
   {
     label: "04 · KEEP",
     title: "Your file, your formats",
-    body: "STEP, STL, OBJ — plus shop drawings and turntable MP4s. Opens in Fusion, SolidWorks, Prusa.",
+    body: "STEP, STL, OBJ — plus shop drawings in SVG, PDF and DXF, and turntable MP4s. Opens in Fusion, SolidWorks, Prusa.",
   },
 ];
 
