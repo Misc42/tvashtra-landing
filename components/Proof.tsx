@@ -75,6 +75,24 @@ const proofs: Proof[] = [
     prompt: "This bracket sees ±900 N, fully reversed — how many cycles before it cracks?",
   },
   {
+    // Nonlinear: cad_nonlinear runs a real CalculiX *STATIC, NLGEOM + *PLASTIC
+    // Newton-Raphson solve — a steel cantilever pushed past yield; the permanent
+    // plastic strain is measured. build-showcase-nonlinear.sh.
+    img: "/screenshots/showcase/nonlinear.png",
+    fit: "contain",
+    title: "It knows when it yields",
+    prompt: "Load this bracket to 2.6 kN — does it yield, and how much does it deform for good?",
+  },
+  {
+    // Transient dynamics: cad_dynamic runs a real CalculiX modal-superposition
+    // transient — a steel cantilever under a sudden tip load; the peak response
+    // and its timing come off the solve. build-showcase-dynamic.sh.
+    img: "/screenshots/showcase/dynamic.png",
+    fit: "contain",
+    title: "It rides out the transient",
+    prompt: "Hit this cantilever with a sudden 400 N — how far does the tip whip, and when?",
+  },
+  {
     // "ranked" was the old copy, written when the tile put a #1 badge on one
     // variant off a solver that was misreading its own results. The claim is
     // that the tool MEASURES the alternatives, not that it ranks them — the
@@ -152,6 +170,15 @@ const proofs: Proof[] = [
     fit: "contain",
     title: "It knows the mechanism",
     prompt: "Give it two revolute joints — what torque holds a 2 kg part at reach?",
+  },
+  {
+    // Mass properties: cad_mass_properties integrates volume, mass, centre of
+    // mass and the inertia tensor over the B-rep solid (the same numbers that
+    // drive rigid-body dynamics + URDF export). build-showcase-massprops.sh.
+    img: "/screenshots/showcase/massprops.png",
+    fit: "contain",
+    title: "It knows the part's inertia",
+    prompt: "What's this bracket's mass, centre of gravity and inertia tensor?",
   },
 ];
 
