@@ -48,6 +48,33 @@ const proofs: Proof[] = [
     prompt: "What are the natural frequencies of this bracket, clamped at the base?",
   },
   {
+    // Thermal: cad_thermal runs a real CalculiX steady-state heat-transfer solve
+    // — a copper spreader with one edge at 20 °C and 30 W dissipated in the body;
+    // the peak and rise are measured off the field. build-showcase-thermal.sh.
+    img: "/screenshots/showcase/thermal.png",
+    fit: "contain",
+    title: "It solves the heat path",
+    prompt: "Chip dumps 30 W into this copper spreader, edge held at 20°C — how hot does it get?",
+  },
+  {
+    // Buckling: cad_buckling runs a real CalculiX *BUCKLE eigen solve — a slender
+    // steel column under axial load; the critical load factor and margin come off
+    // the solve. build-showcase-buckling.sh.
+    img: "/screenshots/showcase/buckling.png",
+    fit: "contain",
+    title: "It checks the buckling margin",
+    prompt: "8 kN straight down this column — does it buckle, and what's the margin?",
+  },
+  {
+    // Fatigue: cad_fatigue runs a real static + S-N stress-life solve — a steel
+    // cantilever under a fully-reversed cyclic load; the life and safety factor
+    // are measured, not authored. build-showcase-fatigue.sh.
+    img: "/screenshots/showcase/fatigue.png",
+    fit: "contain",
+    title: "It counts the cycles to crack",
+    prompt: "This bracket sees ±900 N, fully reversed — how many cycles before it cracks?",
+  },
+  {
     // "ranked" was the old copy, written when the tile put a #1 badge on one
     // variant off a solver that was misreading its own results. The claim is
     // that the tool MEASURES the alternatives, not that it ranks them — the
