@@ -78,10 +78,15 @@ const proofs: Proof[] = [
     prompt: "Position the holes ⌀0.1 to A|B|C, flatness 0.05, perpendicular 0.1 to A.",
   },
   {
+    // A REAL bolted flange coupling — two flanges (disc + hub + bore + bolt
+    // holes), four ISO M8 hex bolts (cad_insert_part + cad_thread) and four hex
+    // nuts, assembled with cad_assembly / cad_component and fanned along its axis
+    // by cad_explode. Every part is real B-rep geometry, not a flat placeholder.
+    // Reproducible via scripts/build-showcase-explode.sh (tracked ops recipe).
     img: "/screenshots/showcase/explode-poster.jpg",
     fit: "cover",
     title: "Assemblies that fan apart",
-    prompt: "Build the cylinder, then fan it out for the manual.",
+    prompt: "Build a bolted flange coupling, then fan it out for the manual.",
   },
   {
     // Mechatronics: cad_kinematics over a real joint chain — FK + the joint
