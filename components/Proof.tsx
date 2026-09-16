@@ -78,6 +78,14 @@ const proofs: Proof[] = [
     title: "Assemblies that fan apart",
     prompt: "Build the cylinder, then fan it out for the manual.",
   },
+  {
+    // Mechatronics: cad_kinematics over a real joint chain — FK + the joint
+    // torque a payload needs. Reproducible via build-showcase-kinematics.sh.
+    img: "/screenshots/showcase/kinematics.png",
+    fit: "contain",
+    title: "It knows the mechanism",
+    prompt: "Give it two revolute joints — what torque holds a 2 kg part at reach?",
+  },
 ];
 
 export default function Proof() {
