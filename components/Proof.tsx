@@ -21,6 +21,16 @@ const proofs: Proof[] = [
     prompt: "Change every M5 hole on this bracket to M6.",
   },
   {
+    // Standard-parts catalog (cad_find_part / cad_insert_part) — ISO/DIN
+    // fasteners with dimensions transcribed from the standards, resolved
+    // OFFLINE with no vendor account. Render authored in tvashtra via
+    // scripts (M10 bolt + washer + nut), so the figures are reproducible.
+    img: "/screenshots/showcase/standard-parts.png",
+    fit: "contain",
+    title: "Off-the-shelf hardware, built in",
+    prompt: "Add an M10 bolt, washer and nut — ISO, real dimensions, no download.",
+  },
+  {
     // The prompt has to name the load the asset was actually solved at. The
     // previous copy said 100 N against an image solved at 3,000 N.
     img: "/screenshots/showcase/stress-solve.png",
