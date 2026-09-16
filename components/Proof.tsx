@@ -8,11 +8,10 @@ type Proof = {
   prompt: string;
 };
 
-// The six proof cards from the design — screenshot on the left,
-// literal prompt on the right, nothing else. The differentiator-heavy
-// Showcase grid (stress/modal/thermal/etc.) lives in git history; this
-// section trades breadth for the "commercial product, not documentation"
-// brief — one line of proof per capability, not a whitepaper.
+// One proof card per capability — the screenshot on the left, the literal
+// prompt on the right, nothing else. Every shipped capability gets a tile
+// (breadth over a tight 3×3): each image is the kernel's own render or a real
+// tool's own output (FEM, ngspice, DFM, GD&T…), never a mockup.
 const proofs: Proof[] = [
   {
     img: "/screenshots/showcase/semantic-edit.png",
@@ -63,6 +62,17 @@ const proofs: Proof[] = [
     prompt: "Take this KiCad board and drop in every component's real 3D model.",
   },
   {
+    // Circuit simulation: cad_circuit_sim reads the board's netlist, builds a
+    // SPICE deck and runs a real ngspice .ac sweep. The Bode plot and every
+    // number (−3 dB corner, roll-off, phase, solve time) are measured off the
+    // returned samples — reproducible via scripts/build-showcase-circuit.sh
+    // (the circuit_bode example + ngspice), so the figures can be rebuilt.
+    img: "/screenshots/showcase/circuit-sim.png",
+    fit: "contain",
+    title: "Frequency response, simulated",
+    prompt: "Simulate this RC filter — where's the -3 dB corner?",
+  },
+  {
     img: "/screenshots/showcase/drawings-a4-bracket.png",
     fit: "contain",
     title: "Shop drawings out the back",
@@ -76,6 +86,16 @@ const proofs: Proof[] = [
     fit: "contain",
     title: "Tolerances the shop can hold",
     prompt: "Position the holes ⌀0.1 to A|B|C, flatness 0.05, perpendicular 0.1 to A.",
+  },
+  {
+    // DFM: cad_dfm_check runs a real mouldability / undercut analysis — which
+    // faces are trapped by neither mold half on a ±Z pull. The section shows the
+    // trapped region in red with a BLOCKER verdict + the trapped area, straight
+    // from the tool. Distinct capability, not just another render of the part.
+    img: "/screenshots/showcase/dfm-undercut.png",
+    fit: "contain",
+    title: "It catches what won't mould",
+    prompt: "Can this part be injection moulded, pulling ±Z?",
   },
   {
     // A REAL bolted flange coupling — two flanges (disc + hub + bore + bolt
