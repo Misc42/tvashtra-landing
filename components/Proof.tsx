@@ -52,10 +52,15 @@ const proofs: Proof[] = [
     prompt: "Same brief, same 100×40×40 envelope — give me genuinely different structures, and weigh them.",
   },
   {
+    // Populated board: cad_board_populate reads a real .kicad_pcb, extrudes its
+    // outline, and imports every footprint's own 3D model (STEP) from the KiCad
+    // library, placed at its pose. tvashtra ships no models — it resolves each
+    // (model …) reference the way KiCad does. Reproducible via
+    // scripts/build-showcase-pcb.sh (fixture tracked, models fetched, pinned).
     img: "/screenshots/showcase/pcb-enclosure.png",
     fit: "contain",
     title: "The board becomes mechanical",
-    prompt: "Take this KiCad board and fit it for an enclosure.",
+    prompt: "Take this KiCad board and drop in every component's real 3D model.",
   },
   {
     img: "/screenshots/showcase/drawings-a4-bracket.png",
