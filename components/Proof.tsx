@@ -64,6 +64,15 @@ const proofs: Proof[] = [
     prompt: "Make an A4 drawing — front, top, right, iso. Scale 1:1.",
   },
   {
+    // GD&T: real feature control frames rendered by the cad-drawing emitter
+    // (position / flatness / perpendicularity + datums). Reproducible via
+    // scripts/build-showcase-gdt.sh in the main repo.
+    img: "/screenshots/showcase/gdt.png",
+    fit: "contain",
+    title: "Tolerances the shop can hold",
+    prompt: "Position the holes ⌀0.1 to A|B|C, flatness 0.05, perpendicular 0.1 to A.",
+  },
+  {
     img: "/screenshots/showcase/explode-poster.jpg",
     fit: "cover",
     title: "Assemblies that fan apart",
