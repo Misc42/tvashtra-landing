@@ -38,6 +38,16 @@ const proofs: Proof[] = [
     prompt: "Clamp the mounting plate. 3,000 N pressing down on the arm. Steel. Where does it yield?",
   },
   {
+    // Modal analysis: cad_modal runs a real CalculiX *FREQUENCY eigen solve on a
+    // clamped steel cantilever — the natural-frequency spectrum, fundamental
+    // highlighted. Same solver as stress/buckling/thermal/fatigue. Reproducible
+    // via scripts/build-showcase-modal.sh (needs ccx + gmsh).
+    img: "/screenshots/showcase/modal.png",
+    fit: "contain",
+    title: "It finds the resonances",
+    prompt: "What are the natural frequencies of this bracket, clamped at the base?",
+  },
+  {
     // "ranked" was the old copy, written when the tile put a #1 badge on one
     // variant off a solver that was misreading its own results. The claim is
     // that the tool MEASURES the alternatives, not that it ranks them — the
