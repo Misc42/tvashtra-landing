@@ -52,6 +52,17 @@ const proofs: Proof[] = [
     prompt: "Give me an IPE 120 — depth, flange, web. And a UPN 100 channel and a 6200 bearing.",
   },
   {
+    // Retaining rings / circlips — DIN 471 external (on a shaft) and DIN 472
+    // internal (in a bore), resolved OFFLINE by cad_find_part: groove diameter,
+    // groove width, ring thickness. The render is a DIN 471 circlip modelled from
+    // primitives (ring − bore − gap − lug holes); every figure is the verified
+    // catalog value (crates/cad-ops/src/lookup.rs), ≥2-source converged.
+    img: "/screenshots/showcase/circlip.png",
+    fit: "contain",
+    title: "Retaining rings, groove and all",
+    prompt: "What groove do I cut for a DIN 471 circlip on a 25mm shaft? And a DIN 472 for a 47mm bore?",
+  },
+  {
     // The prompt has to name the load the asset was actually solved at. The
     // previous copy said 100 N against an image solved at 3,000 N.
     img: "/screenshots/showcase/stress-solve.png",
