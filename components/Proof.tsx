@@ -30,6 +30,16 @@ const proofs: Proof[] = [
     prompt: "Add an M10 bolt, washer and nut — ISO, real dimensions, no download.",
   },
   {
+    // Pipe flanges + pipe schedules — EN 1092-1 / ASME B16.5 / B36.10M, resolved
+    // OFFLINE by cad_find_part. The render is a DN50 PN16 flange modelled from
+    // primitives (disk − bore − bolt circle); every figure is the verified catalog
+    // value (crates/cad-ops/src/lookup.rs), ≥2-source converged.
+    img: "/screenshots/showcase/flange.png",
+    fit: "contain",
+    title: "Pipe flanges and pipe, to the standard",
+    prompt: "Give me a DN50 PN16 flange — OD, bolt circle, hole pattern. And the 2-inch Sch 40 pipe wall.",
+  },
+  {
     // The prompt has to name the load the asset was actually solved at. The
     // previous copy said 100 N against an image solved at 3,000 N.
     img: "/screenshots/showcase/stress-solve.png",
