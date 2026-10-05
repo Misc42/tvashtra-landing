@@ -40,6 +40,18 @@ const proofs: Proof[] = [
     prompt: "Give me a DN50 PN16 flange — OD, bolt circle, hole pattern. And the 2-inch Sch 40 pipe wall.",
   },
   {
+    // Structural steel + bearings — EN 10365 beams, DIN 1026-1 channels,
+    // EN 10056-1 equal angles, DIN 625 deep-groove bearings and T-slot
+    // extrusion, resolved OFFLINE by cad_find_part. The render is an IPE 120
+    // I-beam modelled from primitives (3 plates unioned into the I section);
+    // every figure is the verified catalog value (crates/cad-ops/src/lookup.rs),
+    // ≥2-source converged.
+    img: "/screenshots/showcase/profiles.png",
+    fit: "contain",
+    title: "Structural steel and bearings, to spec",
+    prompt: "Give me an IPE 120 — depth, flange, web. And a UPN 100 channel and a 6200 bearing.",
+  },
+  {
     // The prompt has to name the load the asset was actually solved at. The
     // previous copy said 100 N against an image solved at 3,000 N.
     img: "/screenshots/showcase/stress-solve.png",
