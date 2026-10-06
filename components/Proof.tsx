@@ -161,6 +161,18 @@ const proofs: Proof[] = [
     prompt: "Take this KiCad board and drop in every component's real 3D model.",
   },
   {
+    // ECAD parts library: cad_find_component searches the bundled CERN metadata
+    // index (23,828 parts, CERN-OHL-P) in plain language; cad_place_component
+    // inlines the matched part's REAL footprint — resolved from a CERN library
+    // checkout by the product's hardened resolver — so the board is self-contained.
+    // No pad is authored; the geometry is the library's own. Reproducible via
+    // scripts/build-showcase-ecad.sh (blank board fixture tracked, library resolved).
+    img: "/screenshots/showcase/ecad-library.png",
+    fit: "contain",
+    title: "Find the part, place its footprint",
+    prompt: "Find a DIN 41612 connector and drop its real footprint on my board.",
+  },
+  {
     // Circuit simulation: cad_circuit_sim reads the board's netlist, builds a
     // SPICE deck and runs a real ngspice .ac sweep. The Bode plot and every
     // number (−3 dB corner, roll-off, phase, solve time) are measured off the
