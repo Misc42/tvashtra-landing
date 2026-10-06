@@ -63,6 +63,17 @@ const proofs: Proof[] = [
     prompt: "What groove do I cut for a DIN 471 circlip on a 25mm shaft? And a DIN 472 for a 47mm bore?",
   },
   {
+    // Parallel keys — DIN 6885-1 / ISO 773, resolved OFFLINE by cad_find_part: for a
+    // shaft diameter it returns the key width×height and the shaft/hub keyway depths.
+    // The render is a DIN 6885 key exploded above its shaft keyway, from primitives;
+    // every figure is the verified catalog value (crates/cad-ops/src/lookup.rs),
+    // multi-source converged.
+    img: "/screenshots/showcase/key.png",
+    fit: "contain",
+    title: "Keys and keyways, by the shaft",
+    prompt: "What parallel key and keyway do I need for a 25mm shaft? DIN 6885.",
+  },
+  {
     // The prompt has to name the load the asset was actually solved at. The
     // previous copy said 100 N against an image solved at 3,000 N.
     img: "/screenshots/showcase/stress-solve.png",
