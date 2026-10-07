@@ -198,6 +198,18 @@ const proofs: Proof[] = [
     prompt: "Find a 10k resistor, a 100nF cap and an inductor, place them, and wire them up.",
   },
   {
+    // Hierarchical sheets: cad_add_sheet adds a (sheet) block to a root .kicad_sch
+    // (with named pins + a matching sub-sheet file); cad_place_symbol (with the
+    // returned sheet_path) places real CERN parts onto the sub-sheet so their refs
+    // land on the right hierarchical instance. Both views are drawn by KiCad itself
+    // (kicad-cli) and stacked. Reproducible via scripts/build-showcase-hier.sh
+    // (blank-sheet fixture tracked, library resolved, load-verified by KiCad 10).
+    img: "/screenshots/showcase/hier-sheet.png",
+    fit: "contain",
+    title: "Split it across sheets",
+    prompt: "Add a Power sub-sheet with VIN, OUT and GND, and put the divider parts on it.",
+  },
+  {
     // Circuit simulation: cad_circuit_sim reads the board's netlist, builds a
     // SPICE deck and runs a real ngspice .ac sweep. The Bode plot and every
     // number (−3 dB corner, roll-off, phase, solve time) are measured off the
