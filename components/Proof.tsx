@@ -173,6 +173,19 @@ const proofs: Proof[] = [
     prompt: "Find a DIN 41612 connector and drop its real footprint on my board.",
   },
   {
+    // 2-sided PCB placement: cad_find_component matches CERN footprints by plain
+    // language, cad_place_component inlines each on the FRONT (F.Cu) or, with
+    // layer="B.Cu", mirrors its real geometry onto the BACK exactly the way KiCad
+    // flips a footprint. The composer reads the finished board back and draws a
+    // top-down view, front parts in ink and back parts in accent. Reproducible via
+    // scripts/build-showcase-twosided.sh (blank board fixture tracked, library
+    // resolved, board load-verified by KiCad 10).
+    img: "/screenshots/showcase/pcb-two-sided.png",
+    fit: "contain",
+    title: "Place on either side",
+    prompt: "Put R1, C1 and R3 on the front and R2, C2 and C3 on the back of my board.",
+  },
+  {
     // ECAD schematic placement: cad_find_component matches CERN parts by plain
     // language, cad_place_symbol inlines each matched part's real symbol onto a
     // .kicad_sch so the sheet is self-contained. The render is the actual sheet
