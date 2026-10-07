@@ -231,6 +231,18 @@ const proofs: Proof[] = [
     prompt: "Add a Power sub-sheet with VIN, OUT and GND, and put the divider parts on it.",
   },
   {
+    // Nested sheets to any depth: cad_add_sheet nests a Reg sub-sheet INSIDE a
+    // Power sub-sheet on the root, and a part is placed on the Reg leaf via its
+    // 3-segment instance path /root/Power/Reg. All three levels are drawn by
+    // KiCad itself and stacked; the leaf's net joins its parent pin by name
+    // across both boundaries. Reproducible via scripts/build-showcase-nest.sh
+    // (nest_check example, load- + netlist-verified by KiCad 10).
+    img: "/screenshots/showcase/nested-sheet.png",
+    fit: "contain",
+    title: "Nest sheets, any depth",
+    prompt: "Put a Reg sub-sheet inside the Power sheet, and a 10k resistor on it.",
+  },
+  {
     // Circuit simulation: cad_circuit_sim reads the board's netlist, builds a
     // SPICE deck and runs a real ngspice .ac sweep. The Bode plot and every
     // number (−3 dB corner, roll-off, phase, solve time) are measured off the
