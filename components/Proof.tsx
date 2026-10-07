@@ -52,6 +52,27 @@ const proofs: Proof[] = [
     prompt: "Give me an IPE 120 — depth, flange, web. And a UPN 100 channel and a 6200 bearing.",
   },
   {
+    // Variable-section sweep: three circular profiles (r 15 -> 11 -> 7) authored
+    // in one plane and morphed along a curved spine by cad_sweep_variable (OCCT
+    // MakePipeShell, profiles Add'd). The section changes AND the spine curves —
+    // a loft or a cone can't do this; a folded morph is rejected, not silently
+    // self-intersected. Reproducible via scripts/build-showcase-sweep.sh.
+    img: "/screenshots/showcase/variable-sweep.png",
+    fit: "contain",
+    title: "Sections that morph along a curve",
+    prompt: "Taper this hose from ⌀30 down to ⌀14 along a gentle bend.",
+  },
+  {
+    // Sheet metal: a U-channel bent by cad_sheet_base + cad_sheet_flange — a flat
+    // sheet with a wall bent up 90° along each long edge. The bends are exact
+    // cylinders (inner R 2), not facetted, and cad_sheet_unfold returns the
+    // flat-pattern bend table. Reproducible via scripts/build-showcase-sheetmetal.sh.
+    img: "/screenshots/showcase/sheet-metal.png",
+    fit: "contain",
+    title: "Sheet metal that bends and unfolds",
+    prompt: "Make a 2 mm channel, 22 mm walls, and give me the flat blank.",
+  },
+  {
     // Retaining rings / circlips — DIN 471 external (on a shaft) and DIN 472
     // internal (in a bore), resolved OFFLINE by cad_find_part: groove diameter,
     // groove width, ring thickness. The render is a DIN 471 circlip modelled from
