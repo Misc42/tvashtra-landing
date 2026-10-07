@@ -173,6 +173,18 @@ const proofs: Proof[] = [
     prompt: "Find a DIN 41612 connector and drop its real footprint on my board.",
   },
   {
+    // ECAD schematic placement: cad_find_component matches CERN parts by plain
+    // language, cad_place_symbol inlines each matched part's real symbol onto a
+    // .kicad_sch so the sheet is self-contained. The render is the actual sheet
+    // drawn by KiCad itself (kicad-cli), cropped. Reproducible via
+    // scripts/build-showcase-schematic.sh (blank-sheet fixture tracked, library
+    // resolved, rendered + load-verified by KiCad 10).
+    img: "/screenshots/showcase/schematic-place.png",
+    fit: "contain",
+    title: "Find the part, place its symbol",
+    prompt: "Find a 10k resistor, a 100nF cap, a diode and an inductor and drop their symbols on my schematic.",
+  },
+  {
     // Circuit simulation: cad_circuit_sim reads the board's netlist, builds a
     // SPICE deck and runs a real ngspice .ac sweep. The Bode plot and every
     // number (−3 dB corner, roll-off, phase, solve time) are measured off the
