@@ -181,8 +181,8 @@ const proofs: Proof[] = [
     // resolved, rendered + load-verified by KiCad 10).
     img: "/screenshots/showcase/schematic-place.png",
     fit: "contain",
-    title: "Find the part, place its symbol",
-    prompt: "Find a 10k resistor, a 100nF cap, a diode and an inductor and drop their symbols on my schematic.",
+    title: "Find it, place it, wire it",
+    prompt: "Find a 10k resistor, a 100nF cap and an inductor, place them, and wire them up.",
   },
   {
     // Circuit simulation: cad_circuit_sim reads the board's netlist, builds a
