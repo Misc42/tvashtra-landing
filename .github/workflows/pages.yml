@@ -41,7 +41,22 @@ jobs:
       - name: Build (static export)
         env:
           NEXT_PUBLIC_WAITLIST_ENDPOINT: ${{ vars.NEXT_PUBLIC_WAITLIST_ENDPOINT }}
-        run: pnpm build
+        # next/font/google fetches font metadata from Google at build time and
+        # occasionally gets a null response ("Cannot read properties of null" in
+        # the font loader) — a transient, network-only failure. Retry the build
+        # a couple of times (clean .next/out between attempts) so a blip doesn't
+        # fail the deploy.
+        run: |
+          for attempt in 1 2 3; do
+            echo "::group::build attempt $attempt"
+            if pnpm build; then echo "::endgroup::"; exit 0; fi
+            echo "::endgroup::"
+            echo "build attempt $attempt failed; cleaning and retrying..."
+            rm -rf .next out
+            sleep 10
+          done
+          echo "build failed after 3 attempts"
+          exit 1
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
